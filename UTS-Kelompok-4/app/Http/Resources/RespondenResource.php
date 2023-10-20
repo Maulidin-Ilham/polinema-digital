@@ -14,10 +14,21 @@ class RespondenResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+
+
         return [
-            "id"=>$this->id,
-            "genre" =>$this->genre,
-            "reports" => $this->reports
+
+            'id' => $this->id,
+            'age' => $this->age,
+            'gpa' => $this->gpa,
+            'year' => $this->year,
+            'gender' => $this->gender,
+            'nationality' => $this->nationality,
+            'genre' => $this->genre,
+            'reports' => $this->reports,
+
         ];
+
+
     }
 }

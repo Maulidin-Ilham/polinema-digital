@@ -11,16 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('Respondens', function (Blueprint $table) {
+        Schema::create('respondens', function (Blueprint $table) {
             $table->id();
-            // $table->string("name");
             $table->integer("age");
-            $table->enum("gender",["M","F"]);
-            $table->string("nationality");
             $table->float("gpa");
-            $table->string("genre");
-            $table->string("reports");
+            $table->integer("year");
+            $table->integer("count");
+            $table->string("gender");
+            $table->string("nationality");
+            $table->string("genre")->default("others");
+            $table->text("reports");
             $table->timestamps();
+
         });
     }
 
@@ -29,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('Respondens');
+        Schema::dropIfExists('respondens');
     }
 };

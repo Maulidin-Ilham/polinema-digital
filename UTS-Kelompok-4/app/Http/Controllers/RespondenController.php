@@ -14,7 +14,10 @@ class RespondenController extends Controller
     public function index()
     {
         //
-        return RespondenResource::collection(Responden::all());
+
+        $respondents = Responden::all();
+        $count = $respondents->count();
+        return ["count"=>$count,"data"=>RespondenResource::collection(Responden::all())];
     }
 
     /**
@@ -30,6 +33,7 @@ class RespondenController extends Controller
      */
     public function show(Responden $responden)
     {
+        //
         return new RespondenResource($responden);
     }
 
@@ -48,4 +52,47 @@ class RespondenController extends Controller
     {
         //
     }
+
+    public function indexByNationality($nationality)
+    {
+        // Retrieve respondents with the specified nationality
+        $respondents = Responden::where('nationality', $nationality)->get();
+        $count = $respondents->count();
+        return [
+            "count"=> $count,
+            'data' => RespondenResource::collection($respondents),
+            'message' => 'Respondents with the specified nationality',
+        ];
+
+    }
+
+    public function indexByGender($gender)
+    {
+        // Retrieve respondents with the specified gender
+        $respondents = Responden::where('gender', $gender)->get();
+        $count = $respondents->count();
+        return [
+            "count"=> $count,
+            'data' => RespondenResource::collection($respondents),
+            'message' => 'Respondents with the specified gender',
+        ];
+
+    }
+
+    public function indexByGenre($genre)
+    {
+        // Retrieve respondents with the specified genre
+        $respondents = Responden::where('genre', $genre)->get();
+        $count = $respondents->count();
+        return [
+            "count"=> $count,
+            'data' => RespondenResource::collection($respondents),
+            'message' => 'Respondents with the specified genre',
+        ];
+
+    }
+    public function dataSurvey(){
+
+    }
+
 }

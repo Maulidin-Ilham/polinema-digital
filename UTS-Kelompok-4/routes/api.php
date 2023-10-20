@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\DataSurveyController;
 use App\Http\Controllers\RespondenController;
+use App\Http\Controllers\GenreController;
 use App\Http\Controllers\SurveyDataController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,10 +23,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-
-
 Route::apiResource("/responden",RespondenController::class);
 
-Route::apiResource("/survey-data",SurveyDataController::class);
 
 
+
+Route::get('/responden/nationality/{nationality}', [RespondenController::class, 'indexByNationality']);
+
+Route::get('/responden/gender/{gender}', [RespondenController::class, 'indexByGender']);
+
+Route::get('/responden/genre/{genre}', [RespondenController::class, 'indexByGenre']);
+
+Route::apiResource("/data-survey",DataSurveyController::class);
