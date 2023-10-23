@@ -8,8 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_polinema_digital/controller/auth.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flutter_polinema_digital/controller/getData.dart';
-import 'package:flutter_polinema_digital/models/preview.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 String? url = dotenv.env['BASE_URL'];
@@ -22,42 +20,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final List<String> items = ["Indonesia", "Soudan", "France"];
+  String? selectedValue;
+  String role = '';
+
   @override
   Widget build(BuildContext context) {
     //Get Data Responden
 
-    if (imageUrl == null) {
-      imageUrl =
-          'https://images.unsplash.com/photo-1640951613773-54706e06851d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1160&q=80';
-    }
+    imageUrl ??=
+        'https://images.unsplash.com/photo-1640951613773-54706e06851d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1160&q=80';
 
-    if (name == null) {
-      name = email;
-    }
+    name ??= email;
 
-    String role = '';
     if (email!.contains("polinema")) {
       role = "Student of Polinema";
     } else {
       role = "PolinemaDigital users";
     }
 
-    final List<String> items = ["Indonesia", "Soudan", "France"];
-    String? selectedValue;
-
-    @override
-    Future? didChangeDependencies() {
-      super.didChangeDependencies();
-
-      // Panggil getAllResponden ketika selectedValue berubah
-      if (selectedValue != null) {
-        return Responden.getAllResponden(selectedValue);
-      }
-    }
-
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.all(22),
+        padding: const EdgeInsets.all(22),
         color: Colors.white,
         child: ListView(
           children: [
@@ -73,7 +57,7 @@ class _HomePageState extends State<HomePage> {
                     backgroundColor: Colors.transparent,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 14,
                 ),
                 Column(
@@ -82,14 +66,14 @@ class _HomePageState extends State<HomePage> {
                     Text(
                       name!,
                       style: GoogleFonts.urbanist(
-                          color: Color.fromRGBO(63, 62, 62, 1),
+                          color: const Color.fromRGBO(63, 62, 62, 1),
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
                       role,
                       style: GoogleFonts.urbanist(
-                          color: Color.fromRGBO(106, 112, 124, 1),
+                          color: const Color.fromRGBO(106, 112, 124, 1),
                           fontSize: 14,
                           fontWeight: FontWeight.w600),
                     ),
@@ -97,118 +81,131 @@ class _HomePageState extends State<HomePage> {
                 ),
               ]),
             ),
-            SizedBox(
+            const SizedBox(
               height: 24,
             ),
-            TitleSection(
+            const TitleSection(
                 title: "Statistic",
                 subTitle: "Sistem Informasi Pelaporan Polinema"),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             TotapResponden(),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             Row(
               children: [
                 Expanded(child: RerataUmur()),
-                SizedBox(
+                const SizedBox(
                   width: 16,
                 ),
                 Expanded(child: RerataGPA())
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 16,
             ),
             SebaranGender(),
-            SizedBox(
+            const SizedBox(
               height: 24,
             ),
-            TitleSection(
-                title: "Berdasarkan Negara",
-                subTitle: "Pilih kriteria berdasarkan negara"),
-            SizedBox(
+            const TitleSection(
+              title: "Berdasarkan Negara",
+              subTitle: "Pilih kriteria berdasarkan negara",
+            ),
+            const SizedBox(
               height: 16,
             ),
             DropdownButtonHideUnderline(
-                child: DropdownButton2(
-              isExpanded: true,
-              hint: Text("Select Nation",
+              child: DropdownButton2(
+                isExpanded: true,
+                hint: Text(
+                  "Select Nation",
                   style: GoogleFonts.urbanist(
-                      fontWeight: FontWeight.w600, fontSize: 16)),
-              items: items
-                  .map((String item) => DropdownMenuItem<String>(
+                      fontWeight: FontWeight.w600, fontSize: 16),
+                ),
+                items: items
+                    .map(
+                      (String item) => DropdownMenuItem<String>(
                         value: item,
                         child: Text(item,
                             style: GoogleFonts.urbanist(
                                 fontWeight: FontWeight.w600, fontSize: 16)),
-                      ))
-                  .toList(),
-              value: selectedValue ?? items[0],
-              onChanged: (String? value) {
-                setState(() {
-                  selectedValue = value;
-                  print(selectedValue);
-                });
-              },
-              buttonStyleData: ButtonStyleData(
-                  padding: EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-                  decoration: BoxDecoration(
-                      color: Color.fromRGBO(247, 248, 249, 1),
+                      ),
+                    )
+                    .toList(),
+                value: selectedValue,
+                onChanged: (value) {
+                  print(value);
+                  setState(() {
+                    selectedValue = value;
+                  });
+                },
+                buttonStyleData: ButtonStyleData(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 18, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: const Color.fromRGBO(247, 248, 249, 1),
                       border: Border.all(
-                          color: Color.fromRGBO(232, 236, 244, 1), width: 1),
-                      borderRadius: BorderRadius.circular(8)),
-                  height: 50,
-                  width: double.infinity),
-              menuItemStyleData: MenuItemStyleData(height: 40),
-            )),
-            Container(
-                height: 300,
-                child: FutureBuilder(
-                  future: Responden.getAllResponden(selectedValue),
-                  builder: (context, snapshot) {
-                    if (snapshot.data == null) {
-                      return Container(
-                        child: Center(
-                          child: CircularProgressIndicator(),
-                        ),
-                      );
-                    } else {
-                      return ListView.builder(
-                        itemCount: snapshot.data['genreList'].length,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 16),
-                            child: Card(
-                              color: Color.fromRGBO(61, 67, 79, 1),
-                              child: ListTile(
-                                horizontalTitleGap: 30,
-                                leading: Text(
-                                  snapshot.data['genreCount']
-                                          [snapshot.data['genreList'][index]]
-                                      .toString(),
-                                  style: GoogleFonts.urbanist(
-                                      color: Colors.white,
-                                      fontSize: 32,
-                                      fontWeight: FontWeight.w700),
-                                ),
-                                title: Text(
-                                  snapshot.data['genreList'][index].toString(),
-                                  style: GoogleFonts.urbanist(
-                                      color: Colors.white,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                              ),
+                          color: const Color.fromRGBO(232, 236, 244, 1),
+                          width: 1),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    height: 50,
+                    width: double.infinity),
+                menuItemStyleData: const MenuItemStyleData(height: 40),
+              ),
+            ),
+            selectedValue != null
+                ? Container(
+                    height: 300,
+                    child: FutureBuilder(
+                      future: Responden.getAllResponden(selectedValue),
+                      builder: (context, snapshot) {
+                        if (snapshot.data == null) {
+                          return Container(
+                            child: const Center(
+                              child: CircularProgressIndicator(),
                             ),
                           );
-                        },
-                      );
-                    }
-                  },
-                ))
+                        } else {
+                          return ListView.builder(
+                            itemCount: snapshot.data['genreList'].length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(top: 16),
+                                child: Card(
+                                  color: const Color.fromRGBO(61, 67, 79, 1),
+                                  child: ListTile(
+                                    horizontalTitleGap: 30,
+                                    leading: Text(
+                                      snapshot.data['genreCount'][
+                                              snapshot.data['genreList'][index]]
+                                          .toString(),
+                                      style: GoogleFonts.urbanist(
+                                          color: Colors.white,
+                                          fontSize: 32,
+                                          fontWeight: FontWeight.w700),
+                                    ),
+                                    title: Text(
+                                      snapshot.data['genreList'][index]
+                                          .toString(),
+                                      style: GoogleFonts.urbanist(
+                                          color: Colors.white,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        }
+                      },
+                    ),
+                  )
+                : Text('Pilih nation')
           ],
         ),
       ),
@@ -250,76 +247,72 @@ class _SebaranGenderState extends State<SebaranGender> {
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return Container(
-                padding: EdgeInsets.only(top: 15, bottom: 15, right: 21),
+                padding: const EdgeInsets.only(top: 15, bottom: 15, right: 21),
                 height: 140,
                 decoration: BoxDecoration(
-                    color: Color.fromRGBO(247, 248, 249, 1),
+                    color: const Color.fromRGBO(247, 248, 249, 1),
                     border: Border.all(
-                        color: Color.fromRGBO(232, 236, 244, 1), width: 1),
+                        color: const Color.fromRGBO(232, 236, 244, 1),
+                        width: 1),
                     borderRadius: BorderRadius.circular(8)),
                 child: Row(
                   children: [
                     Expanded(
-                        child: Container(
-                      child: GenderPieChart(
-                          male: snapshot.data['persentageMale'].toDouble(),
-                          female: snapshot.data['persentageFemale'].toDouble()),
-                    )),
+                        child: GenderPieChart(
+                            male: snapshot.data['persentageMale'].toDouble(),
+                            female:
+                                snapshot.data['persentageFemale'].toDouble())),
                     Expanded(
-                        child: Container(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Sebaran Gender",
+                        child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Sebaran Gender",
+                          style: GoogleFonts.urbanist(
+                              color: const Color.fromRGBO(30, 35, 44, 1),
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700),
+                        ),
+                        const SizedBox(
+                          height: 14,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(left: 10),
+                          width: double.infinity,
+                          alignment: Alignment.centerLeft,
+                          height: 30,
+                          decoration: BoxDecoration(
+                              color: const Color.fromRGBO(106, 112, 124, 1),
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Text(
+                            "${snapshot.data['persentageFemale']}%  Perempuan",
                             style: GoogleFonts.urbanist(
-                                color: Color.fromRGBO(30, 35, 44, 1),
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700),
+                                color: Colors.white, fontSize: 14),
                           ),
-                          SizedBox(
-                            height: 14,
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Container(
+                          padding: const EdgeInsets.only(left: 10),
+                          width: double.infinity,
+                          alignment: Alignment.centerLeft,
+                          height: 30,
+                          decoration: BoxDecoration(
+                              color: const Color.fromRGBO(30, 35, 44, 1),
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Text(
+                            "${snapshot.data['persentageMale']}%  Laki-Laki",
+                            style: GoogleFonts.urbanist(
+                                color: Colors.white, fontSize: 14),
                           ),
-                          Container(
-                            padding: EdgeInsets.only(left: 10),
-                            width: double.infinity,
-                            alignment: Alignment.centerLeft,
-                            height: 30,
-                            decoration: BoxDecoration(
-                                color: Color.fromRGBO(106, 112, 124, 1),
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Text(
-                              snapshot.data['persentageFemale'].toString() +
-                                  "%  Perempuan",
-                              style: GoogleFonts.urbanist(
-                                  color: Colors.white, fontSize: 14),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 8,
-                          ),
-                          Container(
-                            padding: EdgeInsets.only(left: 10),
-                            width: double.infinity,
-                            alignment: Alignment.centerLeft,
-                            height: 30,
-                            decoration: BoxDecoration(
-                                color: Color.fromRGBO(30, 35, 44, 1),
-                                borderRadius: BorderRadius.circular(5)),
-                            child: Text(
-                              snapshot.data['persentageMale'].toString() +
-                                  "%  Laki-Laki",
-                              style: GoogleFonts.urbanist(
-                                  color: Colors.white, fontSize: 14),
-                            ),
-                          )
-                        ],
-                      ),
+                        )
+                      ],
                     )),
                   ],
                 ));
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -328,6 +321,8 @@ class _SebaranGenderState extends State<SebaranGender> {
 }
 
 class TotapResponden extends StatelessWidget {
+  const TotapResponden({super.key});
+
   Future fetchAPI() async {
     Dio dio = Dio();
 
@@ -348,7 +343,7 @@ class TotapResponden extends StatelessWidget {
                 child: Stack(children: [
                   Container(
                     height: 80,
-                    color: Color.fromRGBO(30, 35, 44, 1),
+                    color: const Color.fromRGBO(30, 35, 44, 1),
                   ),
                   Positioned(
                     left: 190,
@@ -356,7 +351,7 @@ class TotapResponden extends StatelessWidget {
                     child: Container(
                       width: 250,
                       height: 250,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         color: Color.fromRGBO(61, 67, 79, 1),
                       ),
@@ -388,7 +383,7 @@ class TotapResponden extends StatelessWidget {
               ),
             );
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -416,9 +411,9 @@ class RerataUmur extends StatelessWidget {
             return Container(
               height: 90,
               decoration: BoxDecoration(
-                  color: Color.fromRGBO(247, 248, 249, 1),
+                  color: const Color.fromRGBO(247, 248, 249, 1),
                   border: Border.all(
-                      color: Color.fromRGBO(232, 236, 244, 1), width: 1),
+                      color: const Color.fromRGBO(232, 236, 244, 1), width: 1),
                   borderRadius: BorderRadius.circular(8)),
               child: Stack(
                 alignment: Alignment.center,
@@ -428,7 +423,7 @@ class RerataUmur extends StatelessWidget {
                       child: Text(
                         snapshot.data.toString() + " th",
                         style: GoogleFonts.urbanist(
-                            color: Color.fromRGBO(30, 35, 44, 1),
+                            color: const Color.fromRGBO(30, 35, 44, 1),
                             fontSize: 32,
                             fontWeight: FontWeight.w700),
                       )),
@@ -437,7 +432,7 @@ class RerataUmur extends StatelessWidget {
                       child: Text(
                         "Rerata Umur",
                         style: GoogleFonts.urbanist(
-                            color: Color.fromRGBO(30, 35, 44, 1),
+                            color: const Color.fromRGBO(30, 35, 44, 1),
                             fontSize: 14,
                             fontWeight: FontWeight.w500),
                       )),
@@ -445,7 +440,7 @@ class RerataUmur extends StatelessWidget {
               ),
             );
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -472,9 +467,9 @@ class RerataGPA extends StatelessWidget {
             return Container(
               height: 90,
               decoration: BoxDecoration(
-                  color: Color.fromRGBO(247, 248, 249, 1),
+                  color: const Color.fromRGBO(247, 248, 249, 1),
                   border: Border.all(
-                      color: Color.fromRGBO(232, 236, 244, 1), width: 1),
+                      color: const Color.fromRGBO(232, 236, 244, 1), width: 1),
                   borderRadius: BorderRadius.circular(8)),
               child: Stack(
                 alignment: Alignment.center,
@@ -484,7 +479,7 @@ class RerataGPA extends StatelessWidget {
                       child: Text(
                         snapshot.data.toStringAsFixed(1),
                         style: GoogleFonts.urbanist(
-                            color: Color.fromRGBO(30, 35, 44, 1),
+                            color: const Color.fromRGBO(30, 35, 44, 1),
                             fontSize: 32,
                             fontWeight: FontWeight.w700),
                       )),
@@ -493,7 +488,7 @@ class RerataGPA extends StatelessWidget {
                       child: Text(
                         "Rerata IPK",
                         style: GoogleFonts.urbanist(
-                            color: Color.fromRGBO(30, 35, 44, 1),
+                            color: const Color.fromRGBO(30, 35, 44, 1),
                             fontSize: 14,
                             fontWeight: FontWeight.w500),
                       )),
@@ -501,7 +496,7 @@ class RerataGPA extends StatelessWidget {
               ),
             );
           } else {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -528,14 +523,14 @@ class TitleSection extends StatelessWidget {
           Text(
             title,
             style: GoogleFonts.urbanist(
-                color: Color.fromRGBO(30, 35, 44, 1),
+                color: const Color.fromRGBO(30, 35, 44, 1),
                 fontSize: 30,
                 fontWeight: FontWeight.bold),
           ),
           Text(
             subTitle,
             style: GoogleFonts.urbanist(
-                color: Color.fromRGBO(106, 112, 124, 1),
+                color: const Color.fromRGBO(106, 112, 124, 1),
                 fontSize: 14,
                 fontWeight: FontWeight.w600),
           ),
@@ -564,14 +559,14 @@ class _GenderPieChartState extends State<GenderPieChart> {
             radius: 20,
             value: widget.male,
             showTitle: false,
-            color: Color.fromRGBO(30, 35, 44, 1)),
+            color: const Color.fromRGBO(30, 35, 44, 1)),
         PieChartSectionData(
             radius: 20,
             value: widget.female,
             showTitle: false,
-            color: Color.fromRGBO(106, 112, 124, 1))
+            color: const Color.fromRGBO(106, 112, 124, 1))
       ]),
-      swapAnimationDuration: Duration(milliseconds: 1000),
+      swapAnimationDuration: const Duration(milliseconds: 1000),
     );
   }
 }
