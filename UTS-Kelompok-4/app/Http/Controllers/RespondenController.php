@@ -17,22 +17,25 @@ class RespondenController extends Controller
         $respondents = Responden::all();
         $count = $respondents->count();
 
+        $genres = Responden::select('genre')
+            ->distinct()
+            ->get();
+        $genreList = $genres->pluck('genre')->toArray();
 
-        $respondents_male = Responden::where('gender', "M")->get();
-        $count_male = $respondents_male->count();
+        $genreCounts = Responden::select('genre',)
+            ->groupBy('genre')
+            ->selectRaw('count(*) as count')
+            ->get();
+        $genreCounts = $genreCounts->keyBy('genre');
 
-        $respondents_female = Responden::where('gender', "F")->get();
-        $count_female = $respondents_female->count();
+        $genreCountMap = $genreCounts->pluck('count', 'genre')->toArray();
 
-        $male_precentage = (int)number_format($count_male / $count * 100, 0);
-        $female_precentage = (int)number_format($count_female / $count * 100, 0);
+
 
         return [
             "count_total" => $count,
-            "count_male" => $count_male,
-            "male_precentage" => $male_precentage,
-            "count_female" => $count_female,
-            "female_precentage" => $female_precentage,
+            "genreList" => $genreList,
+            "genreCount" => $genreCountMap,
             "data" => RespondenResource::collection(Responden::all())
         ];
     }
@@ -99,6 +102,23 @@ class RespondenController extends Controller
             'genreCount' => $genreCountMap,
             'data' => RespondenResource::collection($nation),
             'message' => 'Respondents with the specified nationality',
+        ];
+    }
+
+    public function indexByNationalityGenre($nationality, $genre)
+    {
+        // Retrieve respondents with the specified nationality
+        $nationGenre = Responden::where('nationality', $nationality)
+        ->where('genre', $genre)
+        ->get();
+        $count = $nationGenre->count();
+
+        return [
+            'count' => $count,
+            'nationality' => $nationality,
+            'genre' => $genre,
+            'data' => RespondenResource::collection($nationGenre),
+            'message' => 'Respondents with the specified nationality and genre',
         ];
     }
 

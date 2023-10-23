@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_polinema_digital/controller/responden.dart';
+import 'package:flutter_polinema_digital/view/detail.dart';
 import 'package:http/http.dart' as http;
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +21,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final List<String> items = ["Indonesia", "Soudan", "France"];
+  final List<String> items = ["All", "Indonesia", "Soudan", "France"];
   String? selectedValue;
   String role = '';
 
@@ -139,7 +140,11 @@ class _HomePageState extends State<HomePage> {
                 onChanged: (value) {
                   print(value);
                   setState(() {
-                    selectedValue = value;
+                    if (value == "All") {
+                      selectedValue = null;
+                    } else {
+                      selectedValue = value;
+                    }
                   });
                 },
                 buttonStyleData: ButtonStyleData(
@@ -157,55 +162,55 @@ class _HomePageState extends State<HomePage> {
                 menuItemStyleData: const MenuItemStyleData(height: 40),
               ),
             ),
-            selectedValue != null
-                ? Container(
-                    height: 300,
-                    child: FutureBuilder(
-                      future: Responden.getAllResponden(selectedValue),
-                      builder: (context, snapshot) {
-                        if (snapshot.data == null) {
-                          return Container(
-                            child: const Center(
-                              child: CircularProgressIndicator(),
+            Container(
+              height: 400,
+              child: FutureBuilder(
+                future: Responden.getAllResponden(selectedValue),
+                builder: (context, snapshot) {
+                  if (snapshot.data == null) {
+                    return Container(
+                      child: const Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  } else {
+                    return ListView.builder(
+                      itemCount: snapshot.data['genreList'].length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 16),
+                          child: Card(
+                            color: const Color.fromRGBO(61, 67, 79, 1),
+                            child: ListTile(
+                              onTap: (){
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetailPage(nation: selectedValue, genre: snapshot.data['genreList'][index].toString())));
+                              },
+                              horizontalTitleGap: 30,
+                              leading: Text(
+                                snapshot.data['genreCount']
+                                        [snapshot.data['genreList'][index]]
+                                    .toString(),
+                                style: GoogleFonts.urbanist(
+                                    color: Colors.white,
+                                    fontSize: 32,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                              title: Text(
+                                snapshot.data['genreList'][index].toString(),
+                                style: GoogleFonts.urbanist(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500),
+                              ),
                             ),
-                          );
-                        } else {
-                          return ListView.builder(
-                            itemCount: snapshot.data['genreList'].length,
-                            itemBuilder: (context, index) {
-                              return Padding(
-                                padding: const EdgeInsets.only(top: 16),
-                                child: Card(
-                                  color: const Color.fromRGBO(61, 67, 79, 1),
-                                  child: ListTile(
-                                    horizontalTitleGap: 30,
-                                    leading: Text(
-                                      snapshot.data['genreCount'][
-                                              snapshot.data['genreList'][index]]
-                                          .toString(),
-                                      style: GoogleFonts.urbanist(
-                                          color: Colors.white,
-                                          fontSize: 32,
-                                          fontWeight: FontWeight.w700),
-                                    ),
-                                    title: Text(
-                                      snapshot.data['genreList'][index]
-                                          .toString(),
-                                      style: GoogleFonts.urbanist(
-                                          color: Colors.white,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500),
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          );
-                        }
+                          ),
+                        );
                       },
-                    ),
-                  )
-                : Text('Pilih nation')
+                    );
+                  }
+                },
+              ),
+            )
           ],
         ),
       ),
@@ -230,20 +235,9 @@ class _SebaranGenderState extends State<SebaranGender> {
   Future<Map<String, dynamic>>? dataGender;
 
   @override
-  void initState() {
-    super.initState();
-    dataGender = getData();
-  }
-
-  Future<Map<String, dynamic>> getData() async {
-    final data = await Responden.getSebaranGender();
-    return data;
-  }
-
-  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: dataGender,
+        future: Responden.getDataStatistic(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return Container(
@@ -323,18 +317,10 @@ class _SebaranGenderState extends State<SebaranGender> {
 class TotapResponden extends StatelessWidget {
   const TotapResponden({super.key});
 
-  Future fetchAPI() async {
-    Dio dio = Dio();
-
-    var response = await dio.get('$url/api/data-survey');
-
-    return response.data['reponden_all'];
-  }
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: fetchAPI(),
+        future: Responden.getDataStatistic(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return Container(
@@ -360,7 +346,7 @@ class TotapResponden extends StatelessWidget {
                   Padding(
                       padding: const EdgeInsets.only(top: 8, left: 17),
                       child: Text(
-                        snapshot.data.toString(),
+                        snapshot.data["totalResponden"].toString(),
                         style: GoogleFonts.urbanist(
                           color: Colors.white,
                           fontSize: 32,
@@ -392,20 +378,10 @@ class TotapResponden extends StatelessWidget {
 }
 
 class RerataUmur extends StatelessWidget {
-  Future fetchAPI() async {
-    Dio dio = Dio();
-
-    var response = await dio.get('$url/api/data-survey');
-    String data = response.data['average_age'].toString();
-    double umurDouble = double.parse(data);
-    int umur = umurDouble.toInt();
-    return umur;
-  }
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: fetchAPI(),
+        future: Responden.getDataStatistic(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return Container(
@@ -421,7 +397,7 @@ class RerataUmur extends StatelessWidget {
                   Positioned(
                       bottom: 30,
                       child: Text(
-                        snapshot.data.toString() + " th",
+                        snapshot.data["rerataUmur"].toString() + " th",
                         style: GoogleFonts.urbanist(
                             color: const Color.fromRGBO(30, 35, 44, 1),
                             fontSize: 32,
@@ -449,19 +425,10 @@ class RerataUmur extends StatelessWidget {
 }
 
 class RerataGPA extends StatelessWidget {
-  Future fetchAPI() async {
-    Dio dio = Dio();
-
-    var response = await dio.get('$url/api/data-survey');
-    String data = response.data['average_gpa'].toString();
-    double gpaDouble = double.parse(data);
-    return gpaDouble;
-  }
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: fetchAPI(),
+        future: Responden.getDataStatistic(),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           if (snapshot.hasData) {
             return Container(
@@ -477,7 +444,7 @@ class RerataGPA extends StatelessWidget {
                   Positioned(
                       bottom: 30,
                       child: Text(
-                        snapshot.data.toStringAsFixed(1),
+                        snapshot.data['rerataGpa'].toStringAsFixed(1),
                         style: GoogleFonts.urbanist(
                             color: const Color.fromRGBO(30, 35, 44, 1),
                             fontSize: 32,

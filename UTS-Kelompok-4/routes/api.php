@@ -30,6 +30,9 @@ Route::apiResource("/responden",RespondenController::class);
 
 Route::get('/responden/nationality/{nationality}', [RespondenController::class, 'indexByNationality']);
 
+Route::get('/responden/nationality/{nationality}/{genre}', [RespondenController::class, 'indexByNationalityGenre']);
+
+
 Route::get('/responden/gender/{gender}', [RespondenController::class, 'indexByGender']);
 
 Route::get('/responden/genre/{genre}', [RespondenController::class, 'indexByGenre']);
