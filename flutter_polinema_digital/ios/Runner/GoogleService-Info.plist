@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1052754935444-le6rmfhq06ircsn9q6njil6n4mi4cubr.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1052754935444-le6rmfhq06ircsn9q6njil6n4mi4cubr</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC1egIxtJDc3NwYvZzdlPhe9SMQkV4rPII</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1052754935444</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.flutterPolinemaDigital</string>
+	<key>PROJECT_ID</key>
+	<string>polinemadigital-cd0a1</string>
+	<key>STORAGE_BUCKET</key>
+	<string>polinemadigital-cd0a1.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1052754935444:ios:30e53218360d8dffaa3e81</string>
+</dict>
+</plist>

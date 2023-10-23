@@ -14,10 +14,27 @@ class RespondenController extends Controller
     public function index()
     {
         //
-
         $respondents = Responden::all();
         $count = $respondents->count();
-        return ["count"=>$count,"data"=>RespondenResource::collection(Responden::all())];
+
+
+        $respondents_male = Responden::where('gender', "M")->get();
+        $count_male = $respondents_male->count();
+
+        $respondents_female = Responden::where('gender', "F")->get();
+        $count_female = $respondents_female->count();
+
+        $male_precentage = (int)number_format($count_male / $count * 100, 0);
+        $female_precentage = (int)number_format($count_female / $count * 100, 0);
+
+        return [
+            "count_total" => $count,
+            "count_male" => $count_male,
+            "male_precentage" => $male_precentage,
+            "count_female" => $count_female,
+            "female_precentage" => $female_precentage,
+            "data" => RespondenResource::collection(Responden::all())
+        ];
     }
 
     /**
@@ -56,14 +73,33 @@ class RespondenController extends Controller
     public function indexByNationality($nationality)
     {
         // Retrieve respondents with the specified nationality
-        $respondents = Responden::where('nationality', $nationality)->get();
-        $count = $respondents->count();
+        $nation = Responden::where('nationality', $nationality)->get();
+        $count = $nation->count();
+
+        $genres = Responden::select('genre')
+            ->where('nationality', $nationality)
+            ->distinct()
+            ->get();
+
+        $genreList = $genres->pluck('genre')->toArray();
+
+        $genreCounts = Responden::select('genre', 'nationality')
+            ->where('nationality', $nationality)
+            ->groupBy('genre', 'nationality')
+            ->selectRaw('count(*) as count')
+            ->get();
+
+        $genreCounts = $genreCounts->keyBy('genre');
+
+        $genreCountMap = $genreCounts->pluck('count', 'genre')->toArray();
+
         return [
-            "count"=> $count,
-            'data' => RespondenResource::collection($respondents),
+            'count' => $count,
+            'genreList' => $genreList,
+            'genreCount' => $genreCountMap,
+            'data' => RespondenResource::collection($nation),
             'message' => 'Respondents with the specified nationality',
         ];
-
     }
 
     public function indexByGender($gender)
@@ -72,11 +108,10 @@ class RespondenController extends Controller
         $respondents = Responden::where('gender', $gender)->get();
         $count = $respondents->count();
         return [
-            "count"=> $count,
+            "count" => $count,
             'data' => RespondenResource::collection($respondents),
             'message' => 'Respondents with the specified gender',
         ];
-
     }
 
     public function indexByGenre($genre)
@@ -85,14 +120,9 @@ class RespondenController extends Controller
         $respondents = Responden::where('genre', $genre)->get();
         $count = $respondents->count();
         return [
-            "count"=> $count,
+            "count" => $count,
             'data' => RespondenResource::collection($respondents),
             'message' => 'Respondents with the specified genre',
         ];
-
     }
-    public function dataSurvey(){
-
-    }
-
 }

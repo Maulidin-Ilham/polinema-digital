@@ -20,7 +20,7 @@ class RespondenResource extends JsonResource
 
             'id' => $this->id,
             'age' => $this->age,
-            'gpa' => $this->gpa,
+            'gpa' => (float)number_format($this->gpa,2),
             'year' => $this->year,
             'gender' => $this->gender,
             'nationality' => $this->nationality,

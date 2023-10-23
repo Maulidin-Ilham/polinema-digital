@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1052754935444",
+    "project_id": "polinemadigital-cd0a1",
+    "storage_bucket": "polinemadigital-cd0a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1052754935444:android:69688b0ac2671d92aa3e81",
+        "android_client_info": {
+          "package_name": "com.example.flutter_polinema_digital"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1052754935444-ug27p47dau995v913ld5pulcoivlb188.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcPKbAjPQ2XgMibYM4jJYoErD2Uy9M1S0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1052754935444-ug27p47dau995v913ld5pulcoivlb188.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
