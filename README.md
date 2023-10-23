@@ -7,6 +7,19 @@ Polinema Digital adalah aplikasi
 
 # Hasil
 hasil berupa screenshot output
+## WelcomePage
+![image](./Images/WelcomePage.png)
+
+## LoginPage
+![image](./Images/LoginPage.png)
+
+## HomePage
+![image](./Images/HomePage.png)
+![image](./Images/HomePageFilter.png)
+
+## DetailPage
+![image](./Images/DetailPage.png)
+
 
 # Anggota Kelompok
 1. Fitrah Rahmadhani Ahmad
@@ -14,7 +27,7 @@ hasil berupa screenshot output
    - akun github:
 2. Halim Teguh Saputro
    - 2141762122
-   - akun github:
+   - akun github: https://github.com/HalimTeguh
 3. M. Ilham Maulidin
    - 2141762087
    - akun github:
