@@ -25,13 +25,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::apiResource("/responden",RespondenController::class);
 
-
-
-
 Route::get('/responden/nationality/{nationality}', [RespondenController::class, 'indexByNationality']);
 
 Route::get('/responden/nationality/{nationality}/{genre}', [RespondenController::class, 'indexByNationalityGenre']);
-
 
 Route::get('/responden/gender/{gender}', [RespondenController::class, 'indexByGender']);
 

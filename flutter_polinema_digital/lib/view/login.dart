@@ -30,29 +30,29 @@ class _LoginPageState extends State<LoginPage> {
     print(url);
     return Scaffold(
       body: Container(
-        padding: EdgeInsetsDirectional.all(22),
+        padding: const EdgeInsetsDirectional.all(22),
         color: Colors.white,
         child: Form(
           key: _formKey,
           child: ListView(
             children: [
               Padding(
-                padding: EdgeInsets.only(right: 51, top: 100),
+                padding: const EdgeInsets.only(right: 51, top: 100),
                 child: Text(
                   "Welcome back! Glad to see you, Again!",
                   style: GoogleFonts.urbanist(
                     decoration: TextDecoration.none,
                     fontSize: 30,
                     fontWeight: FontWeight.w700,
-                    color: Color(0xFF1E232C),
+                    color: const Color(0xFF1E232C),
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 57,
               ),
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 0.5,
@@ -82,19 +82,19 @@ class _LoginPageState extends State<LoginPage> {
                   }
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               TextFormField(
                 obscureText: passwordVisible,
                 decoration: InputDecoration(
-                  border: OutlineInputBorder(
+                  border: const OutlineInputBorder(
                     borderSide: BorderSide(
                       width: 0.5,
                       color: Color.fromRGBO(232, 236, 244, 50),
                     ),
                   ),
-                  focusedBorder: OutlineInputBorder(
+                  focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
                         width: 2.0, // Lebar border saat terfokus
                         color: Color.fromRGBO(
@@ -102,10 +102,10 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                   ),
                   filled: true,
-                  focusColor: Color.fromRGBO(247, 248, 249, 1),
-                  fillColor: Color.fromRGBO(247, 248, 249, 1),
+                  focusColor: const Color.fromRGBO(247, 248, 249, 1),
+                  fillColor: const Color.fromRGBO(247, 248, 249, 1),
                   hintText: "Enter your password",
-                  hintStyle: TextStyle(color: Colors.grey),
+                  hintStyle: const TextStyle(color: Colors.grey),
                   suffixIcon: IconButton(
                     icon: Icon(passwordVisible
                         ? Icons.visibility
@@ -132,13 +132,13 @@ class _LoginPageState extends State<LoginPage> {
                   child: TextButton(
                       style: ButtonStyle(
                         overlayColor: MaterialStateProperty.all(
-                            Color.fromRGBO(210, 213, 216, 0.902)),
+                            const Color.fromRGBO(210, 213, 216, 0.902)),
                       ),
                       onPressed: () {},
                       child: Text(
                         'Forgot Password?',
                         style: GoogleFonts.urbanist(
-                          color: Color.fromRGBO(106, 112, 124, 1),
+                          color: const Color.fromRGBO(106, 112, 124, 1),
                         ),
                       ))),
               TextButton(
@@ -155,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                     width: double.infinity,
                     height: 56,
                     decoration: BoxDecoration(
-                        color: Color.fromRGBO(30, 35, 44, 1),
+                        color: const Color.fromRGBO(30, 35, 44, 1),
                         borderRadius: BorderRadius.circular(10)),
                     child: Text('Login',
                         style: GoogleFonts.urbanist(
@@ -163,10 +163,10 @@ class _LoginPageState extends State<LoginPage> {
                             fontSize: 17,
                             fontWeight: FontWeight.bold)),
                   )),
-              SizedBox(
+              const SizedBox(
                 height: 26,
               ),
-              Row(
+              const Row(
                 children: [
                   Expanded(child: Divider()),
                   SizedBox(
@@ -179,11 +179,11 @@ class _LoginPageState extends State<LoginPage> {
                   Expanded(child: Divider())
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 26,
               ),
               TextButton(
-                  style: ButtonStyle(
+                  style: const ButtonStyle(
                       // overlayColor:
                       //     MaterialStateProperty.all<Color>(Colors.transparent)
                       ),
@@ -191,7 +191,7 @@ class _LoginPageState extends State<LoginPage> {
                     signInWithGoogle().then((result) {
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
-                          return HomePage();
+                          return const HomePage();
                         },
                       ));
                     });
@@ -202,22 +202,22 @@ class _LoginPageState extends State<LoginPage> {
                     height: 56,
                     decoration: BoxDecoration(
                         border: Border.all(
-                            color: Color.fromRGBO(232, 236, 244, 1), width: 1),
+                            color: const Color.fromRGBO(232, 236, 244, 1), width: 1),
                         borderRadius: BorderRadius.circular(10)),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Image(
+                        const Image(
                           image: AssetImage('assets/google.png'),
                           width: 26,
                           height: 26,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Text('Continue with Google',
                             style: GoogleFonts.urbanist(
-                                color: Color.fromRGBO(106, 112, 124, 1),
+                                color: const Color.fromRGBO(106, 112, 124, 1),
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600)),
                       ],

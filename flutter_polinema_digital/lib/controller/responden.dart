@@ -91,7 +91,7 @@ class Responden {
 
         var response = await dio.get(uri);
         final data = response.data['data'];
-        print("INI ADDALAH DAYA $data");
+        print("INI ADALAH DATA $data");
 
         // final genreList = data['genreList'];
         // final genreCount = data['genreCount'];
@@ -108,11 +108,13 @@ class Responden {
         // return allData;
       } else {
         String uri = "$url/api/responden/genre/$genre";
+        print("Cuman Genre karena nationnya $nation");
 
         var response = await dio.get(uri);
         final data = response.data['data'];
+        final limitedData = data.sublist(5, 10);
 
-        return data;
+        return limitedData;
 
         // final genreList = data['genreList'];
         // final genreCount = data['genreCount'];

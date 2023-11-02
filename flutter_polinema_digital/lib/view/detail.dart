@@ -1,5 +1,8 @@
+import 'dart:async';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_polinema_digital/controller/responden.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DetailPage extends StatefulWidget {
@@ -13,6 +16,87 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
+  final _scrollController = ScrollController();
+  List<Map<String, dynamic>> listResponden = [];
+  List<Map<String, dynamic>> displayData = [];
+  bool isLoading = false;
+  int currentPage = 1;
+  int pageSize = 10;
+
+  @override
+  void initState() {
+    super.initState();
+
+    if (listResponden.isEmpty) {
+      displayData = [];
+      getDetailData(widget.nation, widget.genre);
+    } else {
+      displayData = listResponden.sublist(0, pageSize);
+    }
+
+    _scrollController.addListener(() {
+      if (_scrollController.position.pixels ==
+          _scrollController.position.maxScrollExtent) {
+        if (displayData.length < listResponden.length) {
+          int endIndex = displayData.length + pageSize;
+          if (endIndex > listResponden.length) {
+            endIndex = listResponden.length;
+          }
+          Timer(Duration(seconds: 1), () {
+            setState(() {
+              displayData
+                  .addAll(listResponden.sublist(displayData.length, endIndex));
+            });
+          });
+        }
+      }
+    });
+  }
+
+  Future<void> getDetailData(String? nation, String genre) async {
+    String? url = dotenv.env['BASE_URL'];
+    Dio dio = Dio();
+    print("$nation dengan genre $genre");
+
+    try {
+      if (nation == null || nation.isEmpty) {
+        String uri = "$url/api/responden/nationality/$nation";
+        var response = await dio.get(uri);
+        final data = response.data['data'];
+        print("INI ADALAH DATA $data");
+
+        //Tidak menampilkan apa apa
+      } else {
+        String uri = "$url/api/responden/nationality/$nation/$genre";
+        var response = await dio.get(uri);
+        if (response.statusCode == 200) {
+          final data = response.data['data'];
+          setState(() {
+            int startIndex = (currentPage - 1) * pageSize;
+            print(data);
+            print("listResponden");
+            print(listResponden.length);
+
+            if (listResponden.length == 0) {
+              listResponden.addAll(List<Map<String, dynamic>>.from(data));
+              print("Data berhasil dimasukkan ke listResponden");
+            }
+
+            if (startIndex < listResponden.length) {
+              displayData.addAll(listResponden.sublist(startIndex, 10));
+            }
+
+            isLoading = false;
+            currentPage++;
+          });
+          listResponden.addAll(List<Map<String, dynamic>>.from(data));
+        }
+      }
+    } catch (e) {
+      print('Kesalahan saat mengurai JSON: $e');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,34 +137,38 @@ class _DetailPageState extends State<DetailPage> {
                   height: 10,
                 ),
                 Expanded(
-                  child: FutureBuilder<List<dynamic>>(
-                    future:
-                        Responden.getDetailData(widget.nation, widget.genre),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<List<dynamic>> snapshot) {
-                      if (snapshot.hasData) {
-                        return ListView.builder(
-                          itemCount: snapshot.data!.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                              margin: EdgeInsets.only(top: 16),
-                              padding: EdgeInsets.all(20),
-                              decoration: BoxDecoration(
-                                  color: Color.fromRGBO(249, 249, 255, 1),
-                                  border: Border.all(
-                                      color: Color.fromRGBO(232, 234, 238, 1),
-                                      width: 1),
-                                  borderRadius: BorderRadius.circular(8)),
-                              child: Text('${index+1}. "${snapshot.data![index]['reports']}"'),
-                            );
-                          },
-                        );
-                      }else{
-                        return Center(child: CircularProgressIndicator(),);
-                      }
-                    },
-                  ),
-                )
+                    child: ListView.builder(
+                  controller: _scrollController,
+                  itemCount: displayData.length + 1,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (index < displayData.length) {
+                      return Container(
+                        margin: EdgeInsets.only(top: 16),
+                        padding: EdgeInsets.all(20),
+                        decoration: BoxDecoration(
+                            color: Color.fromRGBO(249, 249, 255, 1),
+                            border: Border.all(
+                                color: Color.fromRGBO(232, 234, 238, 1),
+                                width: 1),
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Text(
+                            '${index + 1}. "${displayData[index]['reports']}"'),
+                      );
+                    } else {
+                      return Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    }
+                    // if (isLoading) {
+                    //   return CircularProgressIndicator(); // Tampilkan loading indicator saat data sedang dimuat
+                    // } else {
+                    //   return Container(); // Jika tidak ada data lagi untuk dimuat
+                    // }
+                  },
+                ))
               ],
             ),
           ),

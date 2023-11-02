@@ -32,12 +32,12 @@ class RespondenController extends Controller
 
 
 
-        return [
+        return response()->json([
             "count_total" => $count,
             "genreList" => $genreList,
             "genreCount" => $genreCountMap,
             "data" => RespondenResource::collection(Responden::all())
-        ];
+        ]);
     }
 
     /**
@@ -96,13 +96,13 @@ class RespondenController extends Controller
 
         $genreCountMap = $genreCounts->pluck('count', 'genre')->toArray();
 
-        return [
+        return response()->json([
             'count' => $count,
             'genreList' => $genreList,
             'genreCount' => $genreCountMap,
             'data' => RespondenResource::collection($nation),
             'message' => 'Respondents with the specified nationality',
-        ];
+        ]);
     }
 
     public function indexByNationalityGenre($nationality, $genre)
@@ -113,13 +113,13 @@ class RespondenController extends Controller
         ->get();
         $count = $nationGenre->count();
 
-        return [
+        return response()->json([
             'count' => $count,
             'nationality' => $nationality,
             'genre' => $genre,
             'data' => RespondenResource::collection($nationGenre),
             'message' => 'Respondents with the specified nationality and genre',
-        ];
+        ]);
     }
 
     public function indexByGender($gender)
@@ -127,11 +127,11 @@ class RespondenController extends Controller
         // Retrieve respondents with the specified gender
         $respondents = Responden::where('gender', $gender)->get();
         $count = $respondents->count();
-        return [
+        return response()->json([
             "count" => $count,
             'data' => RespondenResource::collection($respondents),
             'message' => 'Respondents with the specified gender',
-        ];
+        ]);
     }
 
     public function indexByGenre($genre)
@@ -139,10 +139,10 @@ class RespondenController extends Controller
         // Retrieve respondents with the specified genre
         $respondents = Responden::where('genre', $genre)->get();
         $count = $respondents->count();
-        return [
+        return response()->json([
             "count" => $count,
             'data' => RespondenResource::collection($respondents),
             'message' => 'Respondents with the specified genre',
-        ];
+        ]);
     }
 }
