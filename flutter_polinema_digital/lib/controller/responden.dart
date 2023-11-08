@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
@@ -32,6 +34,23 @@ class Responden {
       nationality: json['nationality'],
       reports: json['reports'],
     );
+  }
+
+
+  static create_responden(String age, String gpa, String year, String gender, String nationality, String genre, String reports) async {
+    String? url = dotenv.env['BASE_URL'];
+    Response response;
+    Dio dio = Dio();
+
+    int age_int = int.parse(age);
+    double gpa_float = double.parse(gpa);
+    int year_int = int.parse(year);
+
+    String genderInisial = (gender == "Male") ? "M" : "F";
+    
+    response = await dio.post('$url/api/form?age=$age_int&gpa=$gpa_float&year=$year&count=1&gender=$genderInisial&nationality=$nationality&genre=$genre&reports=$reports',
+    );
+
   }
 
   static Future getAllResponden(String? nation) async {
@@ -77,6 +96,27 @@ class Responden {
       }
     } catch (e) {
       print('Kesalahan saat mengurai JSON: $e');
+    }
+  }
+
+  static Future getAllGenre() async {
+    String? url = dotenv.env['BASE_URL'];
+    Dio dio = Dio();
+
+    try {
+        String uri = "$url/api/responden/genre/all";
+
+        var response = await dio.get(uri);
+        final data = response.data;
+
+        final genreList = data['genreList'] as List<dynamic>;
+
+        final genreListString = genreList.map((item) => item.toString()).toList();
+
+        return genreListString;
+    } catch (e) {
+      print('Kesalahan saat mengurai JSON: $e');
+      return [];
     }
   }
 

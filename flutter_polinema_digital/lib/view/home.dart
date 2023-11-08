@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_polinema_digital/controller/responden.dart';
+import 'package:flutter_polinema_digital/view/addEdit.dart';
 import 'package:flutter_polinema_digital/view/detail.dart';
 import 'package:http/http.dart' as http;
 import 'package:fl_chart/fl_chart.dart';
@@ -41,179 +42,205 @@ class _HomePageState extends State<HomePage> {
     }
 
     return Scaffold(
-      body: Container(
-        padding: const EdgeInsets.all(22),
-        color: Colors.white,
-        child: ListView(
-          children: [
-            Container(
-              child: Row(children: [
-                Container(
-                  width: 60,
-                  height: 60,
-                  alignment: Alignment.bottomLeft,
-                  child: CircleAvatar(
-                    backgroundImage: NetworkImage(imageUrl!),
-                    radius: 60,
-                    backgroundColor: Colors.transparent,
+      body: Stack(
+        alignment: Alignment.bottomRight,
+        children: [
+        Container(
+          padding: const EdgeInsets.all(22),
+          color: Colors.white,
+          child: ListView(
+            children: [
+              Container(
+                child: Row(children: [
+                  Container(
+                    width: 60,
+                    height: 60,
+                    alignment: Alignment.bottomLeft,
+                    child: CircleAvatar(
+                      backgroundImage: NetworkImage(imageUrl!),
+                      radius: 60,
+                      backgroundColor: Colors.transparent,
+                    ),
                   ),
-                ),
-                const SizedBox(
-                  width: 14,
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      name!,
-                      style: GoogleFonts.urbanist(
-                          color: const Color.fromRGBO(63, 62, 62, 1),
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    Text(
-                      role,
-                      style: GoogleFonts.urbanist(
-                          color: const Color.fromRGBO(106, 112, 124, 1),
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ],
-                ),
-              ]),
-            ),
-            const SizedBox(
-              height: 24,
-            ),
-            const TitleSection(
-                title: "Statistic",
-                subTitle: "Sistem Informasi Pelaporan Polinema"),
-            const SizedBox(
-              height: 16,
-            ),
-            TotapResponden(),
-            const SizedBox(
-              height: 16,
-            ),
-            Row(
-              children: [
-                Expanded(child: RerataUmur()),
-                const SizedBox(
-                  width: 16,
-                ),
-                Expanded(child: RerataGPA())
-              ],
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            SebaranGender(),
-            const SizedBox(
-              height: 24,
-            ),
-            const TitleSection(
-              title: "Berdasarkan Negara",
-              subTitle: "Pilih kriteria berdasarkan negara",
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            DropdownButtonHideUnderline(
-              child: DropdownButton2(
-                isExpanded: true,
-                hint: Text(
-                  "Select Nation",
-                  style: GoogleFonts.urbanist(
-                      fontWeight: FontWeight.w600, fontSize: 16),
-                ),
-                items: items
-                    .map(
-                      (String item) => DropdownMenuItem<String>(
-                        value: item,
-                        child: Text(item,
-                            style: GoogleFonts.urbanist(
-                                fontWeight: FontWeight.w600, fontSize: 16)),
+                  const SizedBox(
+                    width: 14,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        name!,
+                        style: GoogleFonts.urbanist(
+                            color: const Color.fromRGBO(63, 62, 62, 1),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
                       ),
-                    )
-                    .toList(),
-                value: selectedValue,
-                onChanged: (value) {
-                  print(value);
-                  setState(() {
-                    if (value == "All") {
-                      selectedValue = null;
-                    } else {
-                      selectedValue = value;
-                    }
-                  });
-                },
-                buttonStyleData: ButtonStyleData(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 18, vertical: 12),
-                    decoration: BoxDecoration(
-                      color: const Color.fromRGBO(247, 248, 249, 1),
-                      border: Border.all(
-                          color: const Color.fromRGBO(232, 236, 244, 1),
-                          width: 1),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    height: 50,
-                    width: double.infinity),
-                menuItemStyleData: const MenuItemStyleData(height: 40),
+                      Text(
+                        role,
+                        style: GoogleFonts.urbanist(
+                            color: const Color.fromRGBO(106, 112, 124, 1),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                ]),
               ),
-            ),
-            Container(
-              height: 400,
-              child: FutureBuilder(
-                future: Responden.getAllResponden(selectedValue),
-                builder: (context, snapshot) {
-                  if (snapshot.data == null) {
-                    return Container(
-                      child: const Center(
-                        child: CircularProgressIndicator(),
+              const SizedBox(
+                height: 24,
+              ),
+              const TitleSection(
+                  title: "Statistic",
+                  subTitle: "Sistem Informasi Pelaporan Polinema"),
+              const SizedBox(
+                height: 16,
+              ),
+              TotapResponden(),
+              const SizedBox(
+                height: 16,
+              ),
+              Row(
+                children: [
+                  Expanded(child: RerataUmur()),
+                  const SizedBox(
+                    width: 16,
+                  ),
+                  Expanded(child: RerataGPA())
+                ],
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              SebaranGender(),
+              const SizedBox(
+                height: 24,
+              ),
+              const TitleSection(
+                title: "Berdasarkan Negara",
+                subTitle: "Pilih kriteria berdasarkan negara",
+              ),
+              const SizedBox(
+                height: 16,
+              ),
+              DropdownButtonHideUnderline(
+                child: DropdownButton2(
+                  isExpanded: true,
+                  hint: Text(
+                    "Select Nation",
+                    style: GoogleFonts.urbanist(
+                        fontWeight: FontWeight.w600, fontSize: 16),
+                  ),
+                  items: items
+                      .map(
+                        (String item) => DropdownMenuItem<String>(
+                          value: item,
+                          child: Text(item,
+                              style: GoogleFonts.urbanist(
+                                  fontWeight: FontWeight.w600, fontSize: 16)),
+                        ),
+                      )
+                      .toList(),
+                  value: selectedValue,
+                  onChanged: (value) {
+                    print(value);
+                    setState(() {
+                      if (value == "All") {
+                        selectedValue = null;
+                      } else {
+                        selectedValue = value;
+                      }
+                    });
+                  },
+                  buttonStyleData: ButtonStyleData(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 18, vertical: 12),
+                      decoration: BoxDecoration(
+                        color: const Color.fromRGBO(247, 248, 249, 1),
+                        border: Border.all(
+                            color: const Color.fromRGBO(232, 236, 244, 1),
+                            width: 1),
+                        borderRadius: BorderRadius.circular(8),
                       ),
-                    );
-                  } else {
-                    return ListView.builder(
-                      itemCount: snapshot.data['genreList'].length,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 16),
-                          child: Card(
-                            color: const Color.fromRGBO(61, 67, 79, 1),
-                            child: ListTile(
-                              onTap: (){
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) => DetailPage(nation: selectedValue, genre: snapshot.data['genreList'][index].toString())));
-                              },
-                              horizontalTitleGap: 30,
-                              leading: Text(
-                                snapshot.data['genreCount']
-                                        [snapshot.data['genreList'][index]]
-                                    .toString(),
-                                style: GoogleFonts.urbanist(
-                                    color: Colors.white,
-                                    fontSize: 32,
-                                    fontWeight: FontWeight.w700),
-                              ),
-                              title: Text(
-                                snapshot.data['genreList'][index].toString(),
-                                style: GoogleFonts.urbanist(
-                                    color: Colors.white,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500),
+                      height: 50,
+                      width: double.infinity),
+                  menuItemStyleData: const MenuItemStyleData(height: 40),
+                ),
+              ),
+              Container(
+                height: 400,
+                child: FutureBuilder(
+                  future: Responden.getAllResponden(selectedValue),
+                  builder: (context, snapshot) {
+                    if (snapshot.data == null) {
+                      return Container(
+                        child: const Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    } else {
+                      return ListView.builder(
+                        itemCount: snapshot.data['genreList'].length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 16),
+                            child: Card(
+                              color: const Color.fromRGBO(61, 67, 79, 1),
+                              child: ListTile(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (context) => DetailPage(
+                                          nation: selectedValue,
+                                          genre: snapshot.data['genreList']
+                                                  [index]
+                                              .toString())));
+                                },
+                                horizontalTitleGap: 30,
+                                leading: Text(
+                                  snapshot.data['genreCount']
+                                          [snapshot.data['genreList'][index]]
+                                      .toString(),
+                                  style: GoogleFonts.urbanist(
+                                      color: Colors.white,
+                                      fontSize: 32,
+                                      fontWeight: FontWeight.w700),
+                                ),
+                                title: Text(
+                                  snapshot.data['genreList'][index].toString(),
+                                  style: GoogleFonts.urbanist(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500),
+                                ),
                               ),
                             ),
-                          ),
-                        );
-                      },
-                    );
-                  }
-                },
+                          );
+                        },
+                      );
+                    }
+                  },
+                ),
               ),
-            )
-          ],
+            ],
+          ),
         ),
-      ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 30, right: 25),
+          child: FloatingActionButton.extended(
+            backgroundColor: Color.fromRGBO(30, 35, 44, 1),
+            foregroundColor: Colors.black,
+            onPressed: () {
+              // Respond to button press
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddEditResponden()));
+            },
+            icon: Icon(Icons.add, color: Colors.white,),
+            label: Text('Add new Responden', style: GoogleFonts.urbanist(
+              color: Colors.white,
+              fontSize: 14,
+              fontWeight: FontWeight.w500
+            ),),
+          ),
+        )
+      ]),
     );
   }
 }

@@ -105,6 +105,19 @@ class RespondenController extends Controller
         ]);
     }
 
+    public function getAllGenre()
+    {
+        //
+        $genres = Responden::select('genre')
+            ->distinct()
+            ->get();
+        $genreList = $genres->pluck('genre')->toArray();
+
+        return response()->json([
+            "genreList" => $genreList,
+        ]);
+    }
+
     public function indexByNationalityGenre($nationality, $genre)
     {
         // Retrieve respondents with the specified nationality

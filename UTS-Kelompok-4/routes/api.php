@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DataSurveyController;
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\RespondenController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\SurveyDataController;
@@ -29,8 +30,13 @@ Route::get('/responden/nationality/{nationality}', [RespondenController::class, 
 
 Route::get('/responden/nationality/{nationality}/{genre}', [RespondenController::class, 'indexByNationalityGenre']);
 
+Route::get('/responden/genre/all', [RespondenController::class, 'getAllGenre']);
+
 Route::get('/responden/gender/{gender}', [RespondenController::class, 'indexByGender']);
 
 Route::get('/responden/genre/{genre}', [RespondenController::class, 'indexByGenre']);
 
 Route::apiResource("/data-survey",DataSurveyController::class);
+
+
+Route::apiResource("/form", FormController::class);
