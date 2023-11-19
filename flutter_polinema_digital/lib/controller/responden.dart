@@ -50,8 +50,8 @@ class Responden {
     
     response = await dio.post('$url/api/form?age=$age_int&gpa=$gpa_float&year=$year&count=1&gender=$genderInisial&nationality=$nationality&genre=$genre&reports=$reports',
     );
-
   }
+  
 
   static Future getAllResponden(String? nation) async {
     String? url = dotenv.env['BASE_URL'];
@@ -127,7 +127,8 @@ class Responden {
 
     try {
       if (nation == null || nation.isEmpty) {
-        String uri = "$url/api/responden/nationality/$nation/$genre";
+        String uri = "$url/api/responden/genre/$genre";
+
 
         var response = await dio.get(uri);
         final data = response.data['data'];
@@ -147,8 +148,8 @@ class Responden {
 
         // return allData;
       } else {
-        String uri = "$url/api/responden/genre/$genre";
-        print("Cuman Genre karena nationnya $nation");
+        String uri = "$url/api/responden/nationality/$nation/$genre";
+        print("Nation - $nation, Genre - $genre ");
 
         var response = await dio.get(uri);
         final data = response.data['data'];

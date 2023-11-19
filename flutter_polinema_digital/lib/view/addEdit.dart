@@ -346,11 +346,12 @@ class _AddEditRespondenState extends State<AddEditResponden> {
                         padding:
                             EdgeInsets.symmetric(horizontal: 18, vertical: 8),
                         decoration: BoxDecoration(
-                            color: Color.fromRGBO(247, 248, 249, 1),
-                            border: Border.all(
-                                color: Color.fromRGBO(232, 236, 244, 1),
-                                width: 1),
-                            borderRadius: BorderRadius.circular(8)),
+                          color: Color.fromRGBO(247, 248, 249, 1),
+                          border: Border.all(
+                              color: Color.fromRGBO(232, 236, 244, 1),
+                              width: 1),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
                               isExpanded: true,
@@ -456,8 +457,12 @@ class _AddEditRespondenState extends State<AddEditResponden> {
                           _selectedNation,
                           _selectedGenre,
                           _reportsControler.text);
-                      
-                      Navigator.of(context).pop();
+
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) {
+                          return const HomePage();
+                        },
+                      ));
                     }
                   },
                   child: Container(

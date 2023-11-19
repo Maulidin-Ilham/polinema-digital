@@ -4,7 +4,10 @@ use App\Http\Controllers\DataSurveyController;
 use App\Http\Controllers\FormController;
 use App\Http\Controllers\RespondenController;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\SurveyDataController;
+use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -40,3 +43,10 @@ Route::apiResource("/data-survey",DataSurveyController::class);
 
 
 Route::apiResource("/form", FormController::class);
+
+Route::apiResource("/user", UserController::class);
+
+Route::apiResource("/laporan", LaporanController::class);
+
+Route::get('/user/find/{email}', [UserController::class, 'getUserByEmail']);
+

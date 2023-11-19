@@ -1,9 +1,11 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_polinema_digital/controller/responden.dart';
 import 'package:flutter_polinema_digital/view/addEdit.dart';
 import 'package:flutter_polinema_digital/view/detail.dart';
+import 'package:flutter_polinema_digital/view/formLapor.dart';
 import 'package:http/http.dart' as http;
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -24,27 +26,52 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final List<String> items = ["All", "Indonesia", "Soudan", "France"];
   String? selectedValue;
-  String role = '';
+  var data;
+
+  void initState(){
+    super.initState();
+    getDataFromFirestore();
+  }
+
+  Future<void> getDataFromFirestore() async {
+  try {
+    // Mengakses Firestore instance
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    // Membuat referensi koleksi "users"
+    CollectionReference usersCollection = firestore.collection('users');
+
+    // Mengambil data dari koleksi "users"
+    QuerySnapshot querySnapshot = await usersCollection.get();
+
+    // Memproses data yang diambil
+    querySnapshot.docs.forEach((doc) {
+      // Mendapatkan data dari dokumen
+      String name = doc['name'];
+      String email = doc['email'];
+      String imageUrl = doc['imageUrl'];
+      String role = doc['role'];
+
+      // Lakukan sesuatu dengan data, misalnya tampilkan dalam log
+      print('Name: $name, Email: $email, ImageURL: $imageUrl, role: $role');
+    });
+  } catch (e) {
+    print('Error getting data from Firestore: $e');
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
     //Get Data Responden
 
-    imageUrl ??=
-        'https://images.unsplash.com/photo-1640951613773-54706e06851d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1160&q=80';
+    print(name);
+    print(email);
+    print(role);
 
-    name ??= email;
-
-    if (email!.contains("polinema")) {
-      role = "Student of Polinema";
-    } else {
-      role = "PolinemaDigital users";
-    }
 
     return Scaffold(
-      body: Stack(
-        alignment: Alignment.bottomRight,
-        children: [
+      body: Stack(alignment: Alignment.bottomRight, children: [
         Container(
           padding: const EdgeInsets.all(22),
           color: Colors.white,
@@ -76,7 +103,7 @@ class _HomePageState extends State<HomePage> {
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        role,
+                        role!,
                         style: GoogleFonts.urbanist(
                             color: const Color.fromRGBO(106, 112, 124, 1),
                             fontSize: 14,
@@ -89,9 +116,31 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 24,
               ),
-              const TitleSection(
-                  title: "Statistic",
-                  subTitle: "Sistem Informasi Pelaporan Polinema"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const TitleSection(
+                      title: "Statistic",
+                      subTitle: "Sistem Informasi Pelaporan Polinema"),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => AddEditResponden()));
+                    },
+                    style: ElevatedButton.styleFrom(
+                        alignment: Alignment.center,
+                        backgroundColor: Color.fromRGBO(30, 35, 44, 1),
+                        foregroundColor: Color.fromRGBO(98, 106, 122, 1),
+                        fixedSize: Size.fromHeight(48),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8))),
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
+                  )
+                ],
+              ),
               const SizedBox(
                 height: 16,
               ),
@@ -226,18 +275,24 @@ class _HomePageState extends State<HomePage> {
         Padding(
           padding: const EdgeInsets.only(bottom: 30, right: 25),
           child: FloatingActionButton.extended(
-            backgroundColor: Color.fromRGBO(30, 35, 44, 1),
+            backgroundColor: Color.fromRGBO(239, 68, 68, 1),
             foregroundColor: Colors.black,
             onPressed: () {
               // Respond to button press
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => AddEditResponden()));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => LaporPage()));
             },
-            icon: Icon(Icons.add, color: Colors.white,),
-            label: Text('Add new Responden', style: GoogleFonts.urbanist(
+            icon: Icon(
+              Icons.favorite,
               color: Colors.white,
-              fontSize: 14,
-              fontWeight: FontWeight.w500
-            ),),
+            ),
+            label: Text(
+              'Lapor Pelecehan',
+              style: GoogleFonts.urbanist(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600),
+            ),
           ),
         )
       ]),
@@ -503,10 +558,12 @@ class TitleSection extends StatelessWidget {
     super.key,
     required this.title,
     required this.subTitle,
+    this.widget,
   });
 
   final String title;
   final String subTitle;
+  final Widget? widget;
 
   @override
   Widget build(BuildContext context) {
