@@ -137,58 +137,59 @@ class _LoginPageState extends State<LoginPage> {
                 },
               ),
               Container(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                      style: ButtonStyle(
-                        overlayColor: MaterialStateProperty.all(
-                          const Color.fromRGBO(210, 213, 216, 0.902),
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: Text(
-                        'Forgot Password?',
-                        style: GoogleFonts.urbanist(
-                          color: const Color.fromRGBO(106, 112, 124, 1),
-                        ),
-                      ))),
-              TextButton(
+                alignment: Alignment.centerRight,
+                child: TextButton(
                   style: ButtonStyle(
-                      overlayColor:
-                          MaterialStateProperty.all<Color>(Colors.transparent)),
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      // Form is valid, you can process the login.
-                      signInWithEmailPassword(
-                        email: email.text,
-                        password: password.text,
-                      ).then((result) {
-                        print(result);
-                        if (result != null) {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) {
-                              return HomePage();
-                            },
-                          ));
-                        }
-                      });
-                    }
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: double.infinity,
-                    height: 56,
-                    decoration: BoxDecoration(
-                      color: const Color.fromRGBO(30, 35, 44, 1),
-                      borderRadius: BorderRadius.circular(10),
+                    overlayColor: MaterialStateProperty.all(
+                      const Color.fromRGBO(210, 213, 216, 0.902),
                     ),
-                    child: Text(
-                      'Login',
-                      style: GoogleFonts.urbanist(
-                          color: Colors.white,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold),
+                  ),
+                  onPressed: () {},
+                  child: Text(
+                    'Forgot Password?',
+                    style: GoogleFonts.urbanist(
+                      color: const Color.fromRGBO(106, 112, 124, 1),
                     ),
-                  )),
+                  ),
+                ),
+              ),
+              TextButton(
+                style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8)),
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  backgroundColor: Color.fromRGBO(30, 35, 44, 1),
+                  foregroundColor: Color.fromRGBO(210, 213, 216, 0.902),
+                ),
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    // Form is valid, you can process the login.
+                    signInWithEmailPassword(
+                      email: email.text,
+                      password: password.text,
+                    ).then((result) {
+                      if (result != null) {
+                        final user = result['user'];
+                        final statusUser = result['statusUser'];
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) {
+                            return HomePage(user: user, statusUser: statusUser,);
+                          },
+                        ));
+                      }
+                    });
+                  }
+                },
+                child: Container(
+                  child: Text(
+                    'Login',
+                    style: GoogleFonts.urbanist(
+                        color: Colors.white,
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ),
               const SizedBox(
                 height: 26,
               ),
@@ -213,10 +214,6 @@ class _LoginPageState extends State<LoginPage> {
                 height: 26,
               ),
               TextButton(
-                style: const ButtonStyle(
-                    // overlayColor:
-                    //     MaterialStateProperty.all<Color>(Colors.transparent)
-                    ),
                 onPressed: () {
                   signInWithGoogle().then((result) {
                     print(result);
@@ -276,25 +273,26 @@ class _LoginPageState extends State<LoginPage> {
                         fontWeight: FontWeight.w600),
                   ),
                   TextButton(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) {
-                              return const RegisterPage();
-                            },
-                          ),
-                        );
-                      },
-                      style: ButtonStyle(
-                          overlayColor:
-                              MaterialStatePropertyAll(Colors.transparent)),
-                      child: Text(
-                        "Register",
-                        style: GoogleFonts.urbanist(
-                            color: const Color.fromRGBO(30, 35, 44, 1),
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
-                      ))
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return const RegisterPage();
+                          },
+                        ),
+                      );
+                    },
+                    style: ButtonStyle(
+                        overlayColor:
+                            MaterialStatePropertyAll(Colors.transparent)),
+                    child: Text(
+                      "Register",
+                      style: GoogleFonts.urbanist(
+                          color: const Color.fromRGBO(30, 35, 44, 1),
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  )
                 ],
               )
             ],

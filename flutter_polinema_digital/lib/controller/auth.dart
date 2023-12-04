@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -25,15 +26,17 @@ Future signUp(
     required String email,
     required String nim,
     required String password,
+    required bool isLulus,
     required String nohp}) async {
   String? url = dotenv.env['BASE_URL'];
   Dio dio = Dio();
 
   try {
     int nimInt;
+    int lulusBool = (isLulus == true) ? 1 : 0;
     nimInt = int.parse(nim);
     String uri =
-        "$url/api/user?name=$name&email=$email&nim=$nimInt&nohp=$nohp&password=$password";
+        "$url/api/user?name=$name&email=$email&nim=$nimInt&nohp=$nohp&isLulus=$lulusBool&password=$password";
     Response response;
     response = await dio.post(uri);
 
@@ -48,6 +51,25 @@ Future signUp(
   } catch (e) {
     print(e.toString());
     return null;
+  }
+}
+
+Future<int> checkUserStatus(String email) async {
+  final dio = Dio();
+  String? url = dotenv.env['BASE_URL'];
+  final apiUrl = '$url/api/user/find/$email';
+
+  try {
+    final response = await dio.get(apiUrl);
+
+    if (response.statusCode == 200) {
+      final int isLulus = response.data['user'][0]['isLulus'];
+      return isLulus;
+    } else {
+      throw Exception('Failed to load data from API');
+    }
+  } catch (e) {
+    throw Exception('Error connecting to the API');
   }
 }
 
@@ -86,10 +108,14 @@ Future signInWithEmailPassword(
       final User? currentUser = _auth.currentUser;
       assert(user.uid == currentUser?.uid);
 
+      final dataUser = await checkUserStatus(email);
+
+      final statusLulus = dataUser;
+
       // await saveUserInfoToFirestroe(user.uid, name!, email, imageUrl!);
 
       print("signInWithEmailPassword Succeeded: $user");
-      return '$user';
+      return {'user': user, 'statusUser': statusLulus};
     }
   } on FirebaseAuthException catch (e) {
     return e.message;

@@ -27,6 +27,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->nim = $request->nim;
         $user->nohp = $request->nohp;
+        $user->isLulus = $request->isLulus;
         $user->password = bcrypt($request->password);
 
         $user->save();
@@ -61,7 +62,6 @@ class UserController extends Controller
     public function getUserByEmail(string $email)
     {
         //
-
         $user = User::where('email', $email)
         ->get();
 

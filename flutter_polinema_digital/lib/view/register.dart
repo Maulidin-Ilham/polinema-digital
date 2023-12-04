@@ -1,9 +1,6 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_polinema_digital/controller/auth.dart';
-import 'package:flutter_polinema_digital/view/home.dart';
-import 'package:flutter_polinema_digital/view/login.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -18,12 +15,12 @@ class _RegisterPageState extends State<RegisterPage> {
 
   bool passwordVisible = false;
   bool confirmPasswordVisible = false;
+  bool selectedOption = false;
 
   TextEditingController name = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController nim = TextEditingController();
   TextEditingController nohp = TextEditingController();
-
 
   TextEditingController password = TextEditingController();
   TextEditingController confirm_password = TextEditingController();
@@ -212,7 +209,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your phone number';
-                  } else if ((value.length != 13 || !isNumeric(value)) && (value.startsWith("62"))) {
+                  } else if ((value.length != 13 || !isNumeric(value)) &&
+                      (value.startsWith("62"))) {
                     return 'number phone lenght must be 13 numbers and start with 62';
                   } else {
                     return null;
@@ -311,11 +309,33 @@ class _RegisterPageState extends State<RegisterPage> {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your password';
                   } else if (password.text != confirm_password.text) {
-                    return "Password dosn't matched";
+                    return "Password doesn't matched";
                   } else {
                     return null;
                   }
                 },
+              ),
+
+              ListTile(
+                title: Text(
+                  'Sudah Lulus?',
+                  style: GoogleFonts.urbanist(
+                    decoration: TextDecoration.none,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: const Color(0xFF1E232C),
+                  ),
+                ),
+                leading: Checkbox(
+                  activeColor: const Color(0xFF1E232C),
+                  checkColor: Colors.white,
+                  value: selectedOption,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      selectedOption = value!;
+                    });
+                  },
+                ),
               ),
               const SizedBox(
                 height: 20,
@@ -332,6 +352,7 @@ class _RegisterPageState extends State<RegisterPage> {
                         email: email.text,
                         nim: nim.text,
                         nohp: nohp.text,
+                        isLulus: selectedOption,
                         password: password.text);
 
                     Navigator.of(context).pop();
@@ -355,6 +376,36 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
             ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class SelectStatus extends StatelessWidget {
+  const SelectStatus({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white,
+          surfaceTintColor: Colors.white,
+          side: BorderSide(color: Color.fromRGBO(61, 67, 79, 1), width: 1),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        ),
+        onPressed: () {},
+        child: Text(
+          "Halo Halo",
+          style: GoogleFonts.urbanist(
+            decoration: TextDecoration.none,
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: const Color(0xFF1E232C),
           ),
         ),
       ),

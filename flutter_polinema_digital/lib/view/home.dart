@@ -1,12 +1,9 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_polinema_digital/controller/responden.dart';
 import 'package:flutter_polinema_digital/view/addEdit.dart';
 import 'package:flutter_polinema_digital/view/detail.dart';
 import 'package:flutter_polinema_digital/view/formLapor.dart';
-import 'package:http/http.dart' as http;
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -17,7 +14,9 @@ import 'package:google_fonts/google_fonts.dart';
 String? url = dotenv.env['BASE_URL'];
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({super.key, this.user, this.statusUser});
+  final user;
+  final statusUser;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -28,47 +27,46 @@ class _HomePageState extends State<HomePage> {
   String? selectedValue;
   var data;
 
-  void initState(){
+  void initState() {
     super.initState();
     getDataFromFirestore();
   }
 
   Future<void> getDataFromFirestore() async {
-  try {
-    // Mengakses Firestore instance
-    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    try {
+      // Mengakses Firestore instance
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    // Membuat referensi koleksi "users"
-    CollectionReference usersCollection = firestore.collection('users');
+      // Membuat referensi koleksi "users"
+      CollectionReference usersCollection = firestore.collection('users');
 
-    // Mengambil data dari koleksi "users"
-    QuerySnapshot querySnapshot = await usersCollection.get();
+      // Mengambil data dari koleksi "users"
+      QuerySnapshot querySnapshot = await usersCollection.get();
 
-    // Memproses data yang diambil
-    querySnapshot.docs.forEach((doc) {
-      // Mendapatkan data dari dokumen
-      String name = doc['name'];
-      String email = doc['email'];
-      String imageUrl = doc['imageUrl'];
-      String role = doc['role'];
+      // Memproses data yang diambil
+      querySnapshot.docs.forEach((doc) {
+        // Mendapatkan data dari dokumen
+        String name = doc['name'];
+        String email = doc['email'];
+        String imageUrl = doc['imageUrl'];
+        String role = doc['role'];
 
-      // Lakukan sesuatu dengan data, misalnya tampilkan dalam log
-      print('Name: $name, Email: $email, ImageURL: $imageUrl, role: $role');
-    });
-  } catch (e) {
-    print('Error getting data from Firestore: $e');
+        // Lakukan sesuatu dengan data, misalnya tampilkan dalam log
+        print('Name: $name, Email: $email, ImageURL: $imageUrl, role: $role');
+      });
+    } catch (e) {
+      print('Error getting data from Firestore: $e');
+    }
   }
-}
-
 
   @override
   Widget build(BuildContext context) {
     //Get Data Responden
-
     print(name);
     print(email);
     print(role);
-
+    final status = (widget.statusUser == 1) ? "Lulus" : "Belum Lulus";
+    print("status User : $status");
 
     return Scaffold(
       body: Stack(alignment: Alignment.bottomRight, children: [
@@ -103,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        role!,
+                        (widget.statusUser == 0) ? role! : "Alumni $role",
                         style: GoogleFonts.urbanist(
                             color: const Color.fromRGBO(106, 112, 124, 1),
                             fontSize: 14,
@@ -120,25 +118,27 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const TitleSection(
-                      title: "Statistic",
-                      subTitle: "Sistem Informasi Pelaporan Polinema"),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => AddEditResponden()));
-                    },
-                    style: ElevatedButton.styleFrom(
-                        alignment: Alignment.center,
-                        backgroundColor: Color.fromRGBO(30, 35, 44, 1),
-                        foregroundColor: Color.fromRGBO(98, 106, 122, 1),
-                        fixedSize: Size.fromHeight(48),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8))),
-                    child: Icon(
-                      Icons.add,
-                      color: Colors.white,
-                    ),
-                  )
+                    title: "Statistic",
+                    subTitle: "Sistem Informasi Pelaporan Polinema",
+                  ),
+                  if (widget.statusUser == 0)
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => AddEditResponden()));
+                      },
+                      style: ElevatedButton.styleFrom(
+                          alignment: Alignment.center,
+                          backgroundColor: Color.fromRGBO(30, 35, 44, 1),
+                          foregroundColor: Color.fromRGBO(98, 106, 122, 1),
+                          fixedSize: Size.fromHeight(48),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8))),
+                      child: Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      ),
+                    )
                 ],
               ),
               const SizedBox(
@@ -272,29 +272,30 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.only(bottom: 30, right: 25),
-          child: FloatingActionButton.extended(
-            backgroundColor: Color.fromRGBO(239, 68, 68, 1),
-            foregroundColor: Colors.black,
-            onPressed: () {
-              // Respond to button press
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => LaporPage()));
-            },
-            icon: Icon(
-              Icons.favorite,
-              color: Colors.white,
+        if (widget.statusUser == 0)
+          Padding(
+            padding: const EdgeInsets.only(bottom: 30, right: 25),
+            child: FloatingActionButton.extended(
+              backgroundColor: Color.fromRGBO(239, 68, 68, 1),
+              foregroundColor: Colors.black,
+              onPressed: () {
+                // Respond to button press
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) => LaporPage()));
+              },
+              icon: Icon(
+                Icons.favorite,
+                color: Colors.white,
+              ),
+              label: Text(
+                'Lapor Pelecehan',
+                style: GoogleFonts.urbanist(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600),
+              ),
             ),
-            label: Text(
-              'Lapor Pelecehan',
-              style: GoogleFonts.urbanist(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600),
-            ),
-          ),
-        )
+          )
       ]),
     );
   }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->integer('nim');
             $table->string('nohp');
+            $table->boolean('isLulus');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
