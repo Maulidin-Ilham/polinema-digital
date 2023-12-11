@@ -21,7 +21,7 @@ class _DetailPageState extends State<DetailPage> {
   List<Map<String, dynamic>> displayData = [];
   bool isLoading = false;
   int currentPage = 1;
-  int pageSize = 10;
+  int pageSize = 15;
   int lengthAllData = 0;
 
   @override
@@ -89,11 +89,11 @@ class _DetailPageState extends State<DetailPage> {
             print(listResponden.length);
 
             if (startIndex < listResponden.length) {
-              if (listResponden.length < 10) {
+              if (listResponden.length < 15) {
                 displayData.addAll(
                     listResponden.sublist(startIndex, listResponden.length));
               } else {
-                displayData.addAll(listResponden.sublist(startIndex, 10));
+                displayData.addAll(listResponden.sublist(startIndex, 15));
               }
             }
 

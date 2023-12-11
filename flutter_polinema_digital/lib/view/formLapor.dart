@@ -1,13 +1,10 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_polinema_digital/controller/auth.dart';
 import 'package:flutter_polinema_digital/controller/laporan.dart';
-import 'package:flutter_polinema_digital/controller/responden.dart';
-import 'package:flutter_polinema_digital/view/home.dart';
+import 'package:flutter_polinema_digital/view/report.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
@@ -23,10 +20,10 @@ class _LaporPageState extends State<LaporPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _nimController = TextEditingController();
-  TextEditingController _nohpController = TextEditingController();
-  TextEditingController _kronologiController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _nimController = TextEditingController();
+  final TextEditingController _nohpController = TextEditingController();
+  final TextEditingController _kronologiController = TextEditingController();
 
   String selectedJenisLaporan = "Pelecehan Seksual";
   TextEditingController otherJenisLaporan = TextEditingController();
@@ -61,8 +58,6 @@ class _LaporPageState extends State<LaporPage> {
         List<dynamic> userList = response.data['user'];
         if (userList.isNotEmpty) {
           Map<String, dynamic> userData = userList[0];
-          print(userData);
-
           setState(() {
             _nameController.text = userData['name'];
             _nimController.text = userData['nim'].toString();
@@ -70,7 +65,6 @@ class _LaporPageState extends State<LaporPage> {
           });
         }
       } else {
-        print("Gagal mengambil data");
       }
     }
     setState(() {
@@ -87,17 +81,17 @@ class _LaporPageState extends State<LaporPage> {
 
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 22, vertical: 50),
+        padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 50),
         color: Colors.white,
         child: Form(
           key: _formKey,
           child: ListView(
             children: [
               // TITLE PAGE
-              TitleSection(
+               const TitleSection(
                   title: "Lapor Pelecehan",
                   subTitle: 'Sistem Informasi Pelaporan Polinema'),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               // END OF TITLE PAGE
@@ -112,7 +106,7 @@ class _LaporPageState extends State<LaporPage> {
                         style: GoogleFonts.urbanist(
                             fontSize: 18, fontWeight: FontWeight.w600),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
                       TextFormField(
@@ -170,7 +164,7 @@ class _LaporPageState extends State<LaporPage> {
                         style: GoogleFonts.urbanist(
                             fontSize: 18, fontWeight: FontWeight.w600),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
                       // INPUT NAME
@@ -229,7 +223,7 @@ class _LaporPageState extends State<LaporPage> {
                         style: GoogleFonts.urbanist(
                             fontSize: 18, fontWeight: FontWeight.w600),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
                       // INPUT NIM
@@ -289,16 +283,16 @@ class _LaporPageState extends State<LaporPage> {
                         style: GoogleFonts.urbanist(
                             fontSize: 18, fontWeight: FontWeight.w600),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
                       Container(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+                            const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
                         decoration: BoxDecoration(
-                            color: Color.fromRGBO(247, 248, 249, 1),
+                            color: const Color.fromRGBO(247, 248, 249, 1),
                             border: Border.all(
-                                color: Color.fromRGBO(232, 236, 244, 1),
+                                color: const Color.fromRGBO(232, 236, 244, 1),
                                 width: 1),
                             borderRadius: BorderRadius.circular(8)),
                         child: DropdownButtonHideUnderline(
@@ -349,7 +343,7 @@ class _LaporPageState extends State<LaporPage> {
                           style: GoogleFonts.urbanist(
                               fontSize: 18, fontWeight: FontWeight.w600),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 8,
                         ),
                         // INPUT NAME
@@ -409,7 +403,7 @@ class _LaporPageState extends State<LaporPage> {
                         style: GoogleFonts.urbanist(
                             fontSize: 18, fontWeight: FontWeight.w600),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
                       TextFormField(
@@ -443,6 +437,7 @@ class _LaporPageState extends State<LaporPage> {
                           if (value == null || value.isEmpty) {
                             return 'Please enter the Report';
                           }
+                          return null;
                         },
                       ),
                     ]),
@@ -462,17 +457,17 @@ class _LaporPageState extends State<LaporPage> {
                         style: GoogleFonts.urbanist(
                             fontSize: 18, fontWeight: FontWeight.w600),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
                       // INPUT NAME
                       Container(
-                        padding: EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                          color: Color.fromRGBO(247, 248, 249, 1),
+                          color: const Color.fromRGBO(247, 248, 249, 1),
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
-                              color: Color.fromRGBO(232, 236, 244, 1),
+                              color: const Color.fromRGBO(232, 236, 244, 1),
                               width: 1),
                         ),
                         child: Row(
@@ -481,18 +476,18 @@ class _LaporPageState extends State<LaporPage> {
                             Text(
                               (imagePath == null) ? "Choose Image" : imagePath!,
                               style: GoogleFonts.urbanist(
-                                  color: Color.fromRGBO(131, 145, 161, 1),
+                                  color: const Color.fromRGBO(131, 145, 161, 1),
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500),
                             ),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  shape: CircleBorder(),
-                                  side: BorderSide(
+                                  shape: const CircleBorder(),
+                                  side: const BorderSide(
                                       color: Color.fromRGBO(232, 236, 244, 1),
                                       width: 2),
                                   elevation: 0,
-                                  padding: EdgeInsets.all(15),
+                                  padding: const EdgeInsets.all(15),
                                   backgroundColor: Colors.white,
                                   surfaceTintColor: Colors.white),
                               onPressed: () async {
@@ -507,7 +502,7 @@ class _LaporPageState extends State<LaporPage> {
                                 });
                               },
                               child: Container(
-                                child: Icon(
+                                child: const Icon(
                                   Icons.camera_alt_rounded,
                                   color: Color.fromRGBO(131, 145, 161, 1),
                                 ),
@@ -544,7 +539,7 @@ class _LaporPageState extends State<LaporPage> {
 
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
-                          return const HomePage();
+                          return const ReportPage();
                         },
                       ));
                     }
@@ -565,6 +560,44 @@ class _LaporPageState extends State<LaporPage> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class TitleSection extends StatelessWidget {
+  const TitleSection({
+    super.key,
+    required this.title,
+    required this.subTitle,
+    this.widget,
+  });
+
+  final String title;
+  final String subTitle;
+  final Widget? widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: GoogleFonts.urbanist(
+                color: const Color.fromRGBO(30, 35, 44, 1),
+                fontSize: 30,
+                fontWeight: FontWeight.bold),
+          ),
+          Text(
+            subTitle,
+            style: GoogleFonts.urbanist(
+                color: const Color.fromRGBO(106, 112, 124, 1),
+                fontSize: 14,
+                fontWeight: FontWeight.w600),
+          ),
+        ],
       ),
     );
   }

@@ -6,6 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_polinema_digital/controller/getData.dart';
 import 'package:flutter_polinema_digital/controller/responden.dart';
 import 'package:flutter_polinema_digital/view/home.dart';
+import 'package:flutter_polinema_digital/view/report.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddEditResponden extends StatefulWidget {
@@ -460,7 +461,7 @@ class _AddEditRespondenState extends State<AddEditResponden> {
 
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
-                          return const HomePage();
+                          return ReportPage();
                         },
                       ));
                     }
@@ -481,6 +482,44 @@ class _AddEditRespondenState extends State<AddEditResponden> {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class TitleSection extends StatelessWidget {
+  const TitleSection({
+    super.key,
+    required this.title,
+    required this.subTitle,
+    this.widget,
+  });
+
+  final String title;
+  final String subTitle;
+  final Widget? widget;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: GoogleFonts.urbanist(
+                color: const Color.fromRGBO(30, 35, 44, 1),
+                fontSize: 30,
+                fontWeight: FontWeight.bold),
+          ),
+          Text(
+            subTitle,
+            style: GoogleFonts.urbanist(
+                color: const Color.fromRGBO(106, 112, 124, 1),
+                fontSize: 14,
+                fontWeight: FontWeight.w600),
+          ),
+        ],
       ),
     );
   }

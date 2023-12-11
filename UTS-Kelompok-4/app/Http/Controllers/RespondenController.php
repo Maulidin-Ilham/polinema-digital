@@ -31,7 +31,6 @@ class RespondenController extends Controller
         $genreCountMap = $genreCounts->pluck('count', 'genre')->toArray();
 
 
-
         return response()->json([
             "count_total" => $count,
             "genreList" => $genreList,

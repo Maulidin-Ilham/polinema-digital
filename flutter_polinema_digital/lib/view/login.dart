@@ -4,6 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_polinema_digital/controller/auth.dart';
 import 'package:flutter_polinema_digital/view/home.dart';
 import 'package:flutter_polinema_digital/view/register.dart';
+import 'package:flutter_polinema_digital/view/report.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 String? url = dotenv.env['BASE_URL'];
@@ -169,7 +170,7 @@ class _LoginPageState extends State<LoginPage> {
                       password: password.text,
                     ).then((result) {
                       if (result != null) {
-                        final user = result['user'];
+                        dynamic user = result['user'];
                         final statusUser = result['statusUser'];
                         Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) {
@@ -221,7 +222,7 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) {
-                          return const HomePage();
+                          return HomePage();
                         },
                       ),
                     );
