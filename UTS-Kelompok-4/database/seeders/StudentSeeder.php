@@ -13,11 +13,11 @@ class StudentSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        // membaca data csv untuk dimasukkan ke dalam database sebagai data default
+        $csvStudent = Reader::createFromPath('public/akademik_clean.csv', 'r'); // membaca CSV yang ada di direktori Public dengan nama akademik_clean.csv
+        $csvStudent->setHeaderOffset(0); // mendefinisikan baris pertama sebagai header/nama kolom (bukan real data)
 
-        $csvStudent = Reader::createFromPath('public/akademik_clean.csv', 'r');
-        $csvStudent->setHeaderOffset(0);
-
+        // perulangan untuk memasukkan tiap data ke dalam database
         foreach ($csvStudent as $student) {
             DB::table('students')->insert([
                 'nim' => $student['nim'],

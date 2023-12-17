@@ -4,7 +4,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_polinema_digital/controller/auth.dart';
 import 'package:flutter_polinema_digital/view/home.dart';
 import 'package:flutter_polinema_digital/view/register.dart';
-import 'package:flutter_polinema_digital/view/report.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 String? url = dotenv.env['BASE_URL'];
@@ -41,8 +40,10 @@ class _LoginPageState extends State<LoginPage> {
         child: Form(
           key: _formKey,
           child: ListView(
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             children: [
+
+              // HEADER
               Padding(
                 padding: const EdgeInsets.only(right: 51, top: 100),
                 child: Text(
@@ -58,6 +59,8 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 57,
               ),
+
+              // Form input Email (TextFormField with Validator)
               TextFormField(
                 controller: email,
                 decoration: const InputDecoration(
@@ -94,6 +97,8 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 15,
               ),
+
+              // Form input Password (TextFormField with Validator)
               TextFormField(
                 controller: password,
                 obscureText: passwordVisible,
@@ -137,6 +142,8 @@ class _LoginPageState extends State<LoginPage> {
                   }
                 },
               ),
+
+              // Button Forget Password (belum berfungsi)
               Container(
                 alignment: Alignment.centerRight,
                 child: TextButton(
@@ -154,13 +161,15 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
+
+              // Button login by Email dan Password
               TextButton(
                 style: TextButton.styleFrom(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8)),
-                  padding: EdgeInsets.symmetric(vertical: 15),
-                  backgroundColor: Color.fromRGBO(30, 35, 44, 1),
-                  foregroundColor: Color.fromRGBO(210, 213, 216, 0.902),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  backgroundColor: const Color.fromRGBO(30, 35, 44, 1),
+                  foregroundColor: const Color.fromRGBO(210, 213, 216, 0.902),
                 ),
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
@@ -194,6 +203,8 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(
                 height: 26,
               ),
+
+              // DIVIDER
               const Row(
                 children: [
                   Expanded(
@@ -211,9 +222,12 @@ class _LoginPageState extends State<LoginPage> {
                   )
                 ],
               ),
+
               const SizedBox(
                 height: 26,
               ),
+
+              // Button login by Gmail
               TextButton(
                 onPressed: () {
                   signInWithGoogle().then((result) {
@@ -222,7 +236,7 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (context) {
-                          return HomePage();
+                          return const HomePage();
                         },
                       ),
                     );
@@ -260,9 +274,11 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 100,
               ),
+
+              // Jika tidak memiliki account bisa melakukan registrasi
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -283,7 +299,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       );
                     },
-                    style: ButtonStyle(
+                    style: const ButtonStyle(
                         overlayColor:
                             MaterialStatePropertyAll(Colors.transparent)),
                     child: Text(

@@ -25,29 +25,36 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::apiResource("/responden",RespondenController::class);
-
-Route::get('/responden/nationality/{nationality}', [RespondenController::class, 'indexByNationality']);
-
-Route::get('/responden/nationality/{nationality}/{genre}', [RespondenController::class, 'indexByNationalityGenre']);
-
-Route::get('/responden/genre/all', [RespondenController::class, 'getAllGenre']);
-
-Route::get('/responden/gender/{gender}', [RespondenController::class, 'indexByGender']);
-
-Route::get('/responden/genre/{genre}', [RespondenController::class, 'indexByGenre']);
-
-Route::get("/studentDashboard", [StudentController::class, 'dashboard']);
-
-Route::apiResource("/data-survey",DataSurveyController::class);
+// untuk menampilkan semua data responden
+Route::apiResource("/responden",RespondenController::class); 
+// untuk menampilkan semua data responden berdasarkan negara
+Route::get('/responden/nationality/{nationality}', [RespondenController::class, 'indexByNationality']); 
+// untuk menampilkan semua data responden berdasarkan negara dan genre
+Route::get('/responden/nationality/{nationality}/{genre}', [RespondenController::class, 'indexByNationalityGenre']); 
+// untuk mengampilkan semua data responden dari semua jenis Genre
+Route::get('/responden/genre/all', [RespondenController::class, 'getAllGenre']); 
+// untuk menampilkan semua data responden berdasarkan Genre
+Route::get('/responden/genre/{genre}', [RespondenController::class, 'indexByGenre']); 
+// untuk mengampilkan semua data responden berdasarkan Gender
+Route::get('/responden/gender/{gender}', [RespondenController::class, 'indexByGender']); 
 
 
-Route::apiResource("/form", FormController::class);
+// untuk menampilkan semua data survey (dashboard Laporan)
+Route::apiResource("/data-survey",DataSurveyController::class); 
+// untuk operasi CRUD keluhan mahasiswa
+Route::apiResource("/form", FormController::class); 
+// untuk operasi CRUD laporan mahasiswa
+Route::apiResource("/laporan", LaporanController::class); 
 
-Route::apiResource("/user", UserController::class);
 
-Route::apiResource("/laporan", LaporanController::class);
+// untuk operasi CRUD user aplikasi
+Route::apiResource("/user", UserController::class); 
+// untuk mendapatkan data user berdasarkan email. (data user ditampilkan pada aplikasi setelah login)
+Route::get('/user/find/{email}', [UserController::class, 'getUserByEmail']); 
 
 
-Route::get('/user/find/{email}', [UserController::class, 'getUserByEmail']);
+// untuk menampilkan data di dashboar akademik
+Route::get("/studentDashboard", [StudentController::class, 'dashboard']); 
+
+
 

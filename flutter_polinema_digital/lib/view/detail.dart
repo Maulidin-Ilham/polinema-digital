@@ -44,7 +44,7 @@ class _DetailPageState extends State<DetailPage> {
           if (endIndex > listResponden.length) {
             endIndex = listResponden.length;
           }
-          Timer(Duration(seconds: 1), () {
+          Timer(const Duration(seconds: 1), () {
             setState(() {
               displayData
                   .addAll(listResponden.sublist(displayData.length, endIndex));
@@ -122,29 +122,29 @@ class _DetailPageState extends State<DetailPage> {
                 Text(
                   "${widget.genre}",
                   style: GoogleFonts.urbanist(
-                      color: Color.fromRGBO(30, 35, 44, 1),
+                      color: const Color.fromRGBO(30, 35, 44, 1),
                       fontSize: 24,
                       fontWeight: FontWeight.w700),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 5,
                 ),
                 widget.nation != null
                     ? Text(
                         "Detail Survei Negara ${widget.nation}",
                         style: GoogleFonts.urbanist(
-                            color: Color.fromRGBO(106, 112, 124, 1),
+                            color: const Color.fromRGBO(106, 112, 124, 1),
                             fontSize: 14,
                             fontWeight: FontWeight.w600),
                       )
                     : Text(
                         "Detail Survei Dari Seluruh Negara",
                         style: GoogleFonts.urbanist(
-                            color: Color.fromRGBO(106, 112, 124, 1),
+                            color: const Color.fromRGBO(106, 112, 124, 1),
                             fontSize: 14,
                             fontWeight: FontWeight.w600),
                       ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Expanded(
@@ -154,9 +154,9 @@ class _DetailPageState extends State<DetailPage> {
                     itemBuilder: (BuildContext context, int index) {
                       if (index < displayData.length) {
                         return Card(
-                          color: Color.fromRGBO(249, 249, 255, 1),
+                          color: const Color.fromRGBO(249, 249, 255, 1),
                           shape: RoundedRectangleBorder(
-                              side: BorderSide(
+                              side: const BorderSide(
                                   color: Color.fromRGBO(232, 234, 238, 1)),
                               borderRadius: BorderRadius.circular(12)),
                           child: Padding(
@@ -165,7 +165,7 @@ class _DetailPageState extends State<DetailPage> {
                               leading: Text(
                                 (index + 1).toString(),
                                 style: GoogleFonts.urbanist(
-                                    color: Color.fromRGBO(106, 112, 124, 1),
+                                    color: const Color.fromRGBO(106, 112, 124, 1),
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600),
                               ),
@@ -173,7 +173,7 @@ class _DetailPageState extends State<DetailPage> {
                                 displayData[index]['reports'],
                                 textAlign: TextAlign.justify,
                                 style: GoogleFonts.urbanist(
-                                    color: Color.fromRGBO(106, 112, 124, 1),
+                                    color: const Color.fromRGBO(106, 112, 124, 1),
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600),
                               ),
@@ -195,19 +195,19 @@ class _DetailPageState extends State<DetailPage> {
                       } else {
                         if (displayData.length >= lengthAllData) {
                           return Container(
-                            margin: EdgeInsets.only(top: 20),
+                            margin: const EdgeInsets.only(top: 20),
                             child: Text(
                               "End of Data",
                               textAlign: TextAlign.center,
                               style: GoogleFonts.urbanist(
-                                  color: Color.fromRGBO(106, 112, 124, 1),
+                                  color: const Color.fromRGBO(106, 112, 124, 1),
                                   fontSize: 14,
                                   fontWeight: FontWeight.w600),
                             ),
                           );
                         } else {
-                          return Padding(
-                            padding: const EdgeInsets.all(10),
+                          return const Padding(
+                            padding: EdgeInsets.all(10),
                             child: Center(
                               child: CircularProgressIndicator(),
                             ),
@@ -246,9 +246,9 @@ class _DetailRespondenState extends State<DetailResponden> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        Text("Data1"),
-        Text("Data1"),
-        Text("Data1"),
+        const Text("Data1"),
+        const Text("Data1"),
+        const Text("Data1"),
       ],
     );
   }

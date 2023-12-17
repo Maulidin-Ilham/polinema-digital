@@ -22,12 +22,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Polinema Digital',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: WelcomePage()
+      //Pertama kali aplikasi dijalankan langsung diarahkan ke Welcome Page
+      home: const WelcomePage()
     );
   }
 }

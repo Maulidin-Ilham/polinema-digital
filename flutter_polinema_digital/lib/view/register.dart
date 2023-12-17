@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_polinema_digital/controller/auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -51,6 +50,8 @@ class _RegisterPageState extends State<RegisterPage> {
           key: _formKey,
           child: ListView(
             children: [
+
+              // HEADER
               Padding(
                 padding: const EdgeInsets.only(right: 51, top: 50),
                 child: Text(
@@ -67,7 +68,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: 50,
               ),
 
-              // INPUT NAME
+              // Form input NAME (TextFormField with Validator)
               TextFormField(
                 controller: name,
                 decoration: const InputDecoration(
@@ -79,10 +80,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                        width: 2.0, // Lebar border saat terfokus
-                        color: Color.fromRGBO(
-                            61, 67, 79, 1) // Warna border saat terfokus
-                        ),
+                      width: 2.0, 
+                      color: Color.fromRGBO(61, 67, 79, 1) 
+                    ),
                   ),
                   filled: true,
                   focusColor: Color.fromRGBO(247, 248, 249, 1),
@@ -90,7 +90,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   hintText: "Enter your full name",
                   hintStyle: TextStyle(color: Colors.grey),
                 ),
-                // The validator receives the text that the user has entered.
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your Name';
@@ -103,7 +102,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: 15,
               ),
 
-              // INPUT EMAIL
+              // Form input EMAIL (TextFormField with Validator)
               TextFormField(
                 controller: email,
                 keyboardType: TextInputType.emailAddress,
@@ -116,10 +115,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                        width: 2.0, // Lebar border saat terfokus
-                        color: Color.fromRGBO(
-                            61, 67, 79, 1) // Warna border saat terfokus
-                        ),
+                      width: 2.0, 
+                      color: Color.fromRGBO(61, 67, 79, 1)
+                    ),
                   ),
                   filled: true,
                   focusColor: Color.fromRGBO(247, 248, 249, 1),
@@ -127,7 +125,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   hintText: "Enter your email",
                   hintStyle: TextStyle(color: Colors.grey),
                 ),
-                // The validator receives the text that the user has entered.
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your email';
@@ -142,7 +139,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: 15,
               ),
 
-              // INPUT NIM
+              // Form input NIM (TextFormField with Validator)
               TextFormField(
                 controller: nim,
                 keyboardType: TextInputType.number,
@@ -155,10 +152,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                        width: 2.0, // Lebar border saat terfokus
-                        color: Color.fromRGBO(
-                            61, 67, 79, 1) // Warna border saat terfokus
-                        ),
+                      width: 2.0,
+                      color: Color.fromRGBO(61, 67, 79, 1) 
+                    ),
                   ),
                   filled: true,
                   focusColor: Color.fromRGBO(247, 248, 249, 1),
@@ -166,7 +162,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   hintText: "Enter your NIM",
                   hintStyle: TextStyle(color: Colors.grey),
                 ),
-                // The validator receives the text that the user has entered.
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your NIM';
@@ -181,7 +176,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: 15,
               ),
 
-              // INPUT NIM
+              // Form input NOMOR HP (TextFormField with Validator)
               TextFormField(
                 controller: nohp,
                 keyboardType: TextInputType.number,
@@ -194,9 +189,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
-                        width: 2.0, // Lebar border saat terfokus
+                        width: 2.0, 
                         color: Color.fromRGBO(
-                            61, 67, 79, 1) // Warna border saat terfokus
+                            61, 67, 79, 1)
                         ),
                   ),
                   filled: true,
@@ -205,7 +200,6 @@ class _RegisterPageState extends State<RegisterPage> {
                   hintText: "Enter your phone number",
                   hintStyle: TextStyle(color: Colors.grey),
                 ),
-                // The validator receives the text that the user has entered.
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Please enter your phone number';
@@ -221,7 +215,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: 15,
               ),
 
-              // INPUT PASSWORD
+              // Form input PASSWORD (TextFormField with Validator)
               TextFormField(
                 controller: password,
                 obscureText: passwordVisible,
@@ -234,9 +228,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
-                        width: 2.0, // Lebar border saat terfokus
+                        width: 2.0,
                         color: Color.fromRGBO(
-                            61, 67, 79, 1) // Warna border saat terfokus
+                            61, 67, 79, 1)
                         ),
                   ),
                   filled: true,
@@ -269,7 +263,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 height: 15,
               ),
 
-              // INPUT CONFIRM PASSWORD
+              // Form input CONFIRM PASSWORD (TextFormField with Validator)
               TextFormField(
                 controller: confirm_password,
                 obscureText: confirmPasswordVisible,
@@ -282,9 +276,9 @@ class _RegisterPageState extends State<RegisterPage> {
                   ),
                   focusedBorder: const OutlineInputBorder(
                     borderSide: BorderSide(
-                        width: 2.0, // Lebar border saat terfokus
+                        width: 2.0, 
                         color: Color.fromRGBO(
-                            61, 67, 79, 1) // Warna border saat terfokus
+                            61, 67, 79, 1)
                         ),
                   ),
                   filled: true,
@@ -316,6 +310,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 },
               ),
 
+              // Checkbox status lulus mahasiswa
               ListTile(
                 title: Text(
                   'Sudah Lulus?',
@@ -340,6 +335,8 @@ class _RegisterPageState extends State<RegisterPage> {
               const SizedBox(
                 height: 20,
               ),
+
+              // Button Registratsi
               TextButton(
                 style: ButtonStyle(
                     overlayColor:
@@ -376,36 +373,6 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class SelectStatus extends StatelessWidget {
-  const SelectStatus({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.white,
-          surfaceTintColor: Colors.white,
-          side: BorderSide(color: Color.fromRGBO(61, 67, 79, 1), width: 1),
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        ),
-        onPressed: () {},
-        child: Text(
-          "Halo Halo",
-          style: GoogleFonts.urbanist(
-            decoration: TextDecoration.none,
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-            color: const Color(0xFF1E232C),
           ),
         ),
       ),

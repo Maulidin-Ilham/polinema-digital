@@ -29,13 +29,9 @@ class _WelcomePageState extends State<WelcomePage> {
                     DecorationImage(image: AssetImage('assets/Branding.png'))),
           ),
           TextButton(
-              style: const ButtonStyle(
-                  // overlayColor:
-                  //     MaterialStateProperty.all<Color>(Colors.transparent)
-                  ),
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                  return const LoginPage();
+                  return const LoginPage(); // Button untuk mengarahkan ke halaman Login Page
                 }));
               },
               child: Container(

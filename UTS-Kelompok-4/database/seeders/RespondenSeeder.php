@@ -13,46 +13,12 @@ class RespondenSeeder extends Seeder
      */
     public function run(): void
     {
-        // DB::disableQueryLog();
+      
+        // membaca data csv untuk dimasukkan ke dalam database sebagai data default
+        $csv = Reader::createFromPath('public/data_fixed.csv', 'r'); // membaca CSV yang ada di direktori Public dengan nama data_fixed.csv
+        $csv->setHeaderOffset(0); // mendefinisikan baris pertama sebagai header/nama kolom (bukan real data)
 
-        // LazyCollection::make(function(){
-        //     $handle = fopen(public_path("data_fixed.csv"),"r");
-
-        //     while((($line = fgetcsv($handle,1010)))!= false){
-        //         $dataString = implode(",",$line);
-        //         $row = explode(",",$dataString);
-        //         yield $row;
-        //     }
-
-        //     fclose($handle);
-        // })
-        // ->skip(1)
-        // ->chunk(1000)
-        // ->each(function(LazyCollection $chunk){
-
-        //     $records = $chunk->map(function ($row) {
-        //         // Check if "age" is a valid integer, and skip the row if it's not
-
-
-        //         return [
-        //             "age" => $row[2],
-        //             "gpa" => $row[3],
-        //             "year" => $row[4],
-        //             "count" => $row[5],
-        //             "genre" => $row[0],
-        //             "nationality" => $row[7],
-        //             "gender" => $row[6],
-        //             "reports" => $row[1],
-        //         ];// Filter out rows where "age" is not valid
-        //     })->toArray();
-
-        //     $filteredRecords = array_filter($records);
-        //     DB::table("respondens")->insert($filteredRecords);
-        // });
-
-        $csv = Reader::createFromPath('public/data_fixed.csv', 'r');
-        $csv->setHeaderOffset(0);
-
+        // perulangan untuk memasukkan tiap data ke dalam database
         foreach ($csv as $record) {
             DB::table('respondens')->insert([
                 'genre' => $record['Genre'],

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->integer('nim');
             $table->string('nohp');
-            $table->boolean('isLulus');
+            $table->boolean('isLulus'); // menentukan user (pengguna itu sudah lulus atau belum)
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

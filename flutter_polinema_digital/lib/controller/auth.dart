@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,6 +20,7 @@ Future<FirebaseApp> _initilizedFirebase() async {
   return firebaseApp;
 }
 
+// SIGN UP USER
 Future signUp(
     {required String name,
     required String email,
@@ -54,25 +54,7 @@ Future signUp(
   }
 }
 
-Future<int> checkUserStatus(String email) async {
-  final dio = Dio();
-  String? url = dotenv.env['BASE_URL'];
-  final apiUrl = '$url/api/user/find/$email';
-
-  try {
-    final response = await dio.get(apiUrl);
-
-    if (response.statusCode == 200) {
-      final int isLulus = response.data['user'][0]['isLulus'];
-      return isLulus;
-    } else {
-      throw Exception('Failed to load data from API');
-    }
-  } catch (e) {
-    throw Exception('Error connecting to the API');
-  }
-}
-
+// SIGN IN EMAIL & PASSWORD
 Future signInWithEmailPassword(
     {required String email, required String password}) async {
   try {
@@ -112,8 +94,6 @@ Future signInWithEmailPassword(
 
       statusLulus = dataUser;
 
-      // await saveUserInfoToFirestroe(user.uid, name!, email, imageUrl!);
-
       print("signInWithEmailPassword Succeeded: $user");
       return {'user': user, 'statusUser': statusLulus};
     }
@@ -122,6 +102,7 @@ Future signInWithEmailPassword(
   }
 }
 
+// SIGN IN GMAIL
 Future<String?> signInWithGoogle() async {
   await Firebase.initializeApp();
 
@@ -161,17 +142,22 @@ Future<String?> signInWithGoogle() async {
   return null;
 }
 
-Future<void> saveUserInfoToFirestroe(
-    String userId, String name, String email, String image) async {
-  // Mengakses Firestore instance
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-  DocumentReference userReferense = firestore.collection('users').doc(userId);
 
-  var role = "PolinemaDigital's User";
-  if (email.contains("polinema")) {
-    role = "Student of Polinema";
+Future<int> checkUserStatus(String email) async {
+  final dio = Dio();
+  String? url = dotenv.env['BASE_URL'];
+  final apiUrl = '$url/api/user/find/$email';
+
+  try {
+    final response = await dio.get(apiUrl);
+
+    if (response.statusCode == 200) {
+      final int isLulus = response.data['user'][0]['isLulus'];
+      return isLulus;
+    } else {
+      throw Exception('Failed to load data from API');
+    }
+  } catch (e) {
+    throw Exception('Error connecting to the API');
   }
-
-  await userReferense
-      .set({'name': name, 'email': email, 'imageUrl': imageUrl, 'role': role});
 }
