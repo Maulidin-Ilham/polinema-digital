@@ -4,9 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_polinema_digital/controller/laporan.dart';
+import 'package:flutter_polinema_digital/view/home.dart';
 import 'package:flutter_polinema_digital/view/report.dart';
 import 'package:flutter_polinema_digital/widgets/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 
 class LaporPage extends StatefulWidget {
@@ -478,15 +480,15 @@ class _LaporPageState extends State<LaporPage> {
                                 backgroundColor: Colors.white,
                                 surfaceTintColor: Colors.white),
                             onPressed: () async {
-                              // File? imageFile = await getImage();
-                              // setState(() {
-                              //   if (imageFile != null) {
-                              //     buktiImage = imageFile;
-                              //     imagePath = basename(imageFile.path);
-                              //   } else {
-                              //     print("Gagal memilih gambar");
-                              //   }
-                              // });
+                              File? imageFile = await getImage();
+                              setState(() {
+                                if (imageFile != null) {
+                                  buktiImage = imageFile;
+                                  imagePath = basename(imageFile.path);
+                                } else {
+                                  print("Gagal memilih gambar");
+                                }
+                              });
                             },
                             child: const Icon(
                               Icons.camera_alt_rounded,
@@ -523,7 +525,7 @@ class _LaporPageState extends State<LaporPage> {
 
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
-                          return const ReportPage();
+                          return const HomePage();
                         },
                       ));
                     }
@@ -549,3 +551,15 @@ class _LaporPageState extends State<LaporPage> {
   }
 }
 
+Future<File?> getImage() async {
+  final ImagePicker _picker = ImagePicker();
+
+  final picked = await _picker.pickImage(source: ImageSource.gallery);
+  if (picked != null) {
+    print("Berhasil memilih image");
+    return File(picked.path);
+  } else {
+    print("Gagal memilih image");
+    return null;
+  }
+}

@@ -62,7 +62,7 @@ class _ReportPageState extends State<ReportPage> {
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      (widget.statusUser == 0) ? role! : "Alumni $role",
+                      (statusLulus == 0) ? role! : "Alumni $role",
                       style: GoogleFonts.urbanist(
                           color: const Color.fromRGBO(106, 112, 124, 1),
                           fontSize: 14,

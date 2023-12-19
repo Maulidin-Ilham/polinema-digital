@@ -46,6 +46,7 @@ dependencies:
   flutter_dotenv: ^5.1.0
   dropdown_button2: ^2.3.9
   firebase_storage: ^11.5.1
+  image_picker: ^1.0.5
 
 dev_dependencies:
   flutter_test:

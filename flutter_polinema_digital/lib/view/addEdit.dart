@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_polinema_digital/controller/responden.dart';
+import 'package:flutter_polinema_digital/view/home.dart';
 import 'package:flutter_polinema_digital/view/report.dart';
 import 'package:flutter_polinema_digital/widgets/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -443,7 +444,7 @@ class _AddEditRespondenState extends State<AddEditResponden> {
 
                       Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) {
-                          return const ReportPage();
+                          return const HomePage();
                         },
                       ));
                     }
