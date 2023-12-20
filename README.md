@@ -9,7 +9,7 @@
    - akun github: https://github.com/HalimTeguh
 3. M. Ilham Maulidin (2141762087) sebagai Back-End Developer (Laravel)
    - akun github: https://github.com/Maulidin-Ilham
-5. Nabila Rasyidah (2141762047) sebagai Dokumentasi
+5. Nabila Rasyidah (2141762047) sebagai Dokumentalis
    - akun github: https://github.com/nabilarasyidah
 
 &nbsp;
@@ -17,21 +17,17 @@
 #
 # ❓ The Brief…
 
-Pendidikan tinggi memainkan peran penting dalam perkembangan pribadi dan profesional mahasiswa. Salah satu aspek kunci dari pendidikan tinggi adalah kualitas layanan yang diberikan oleh institusi pendidikan. Institusi tersebut bertanggung jawab untuk menyediakan lingkungan yang mendukung pembelajaran dan perkembangan mahasiswa.
+Pendidikan tinggi memainkan peran penting dalam perkembangan pribadi dan profesional mahasiswa. Beberapa aspek kunci dari pendidikan tinggi adalah kualitas layanan yang diberikan oleh institusi pendidikan serta monitoring terhadap dinamika akademik yang terjadi. Institusi tersebut bertanggung jawab untuk menyediakan lingkungan yang mendukung pembelajaran dan perkembangan mahasiswa.
 
-Mr. X adalah seorang administrator atau staf di Politeknik Negeri Malang yang berkomitmen untuk meningkatkan kualitas layanan yang disediakan kepada mahasiswa. Untuk mencapai tujuan ini, dia merasa perlu untuk mendapatkan masukan dari para mahasiswa mengenai pengalaman mereka di kampus. Oleh karena itu, dia memutuskan untuk melakukan survei yang berfokus pada masalah komplain yang mungkin dihadapi oleh mahasiswa.
+Mr. X adalah seorang administrator atau staf di Politeknik Negeri Malang yang berkomitmen untuk meningkatkan kualitas layanan yang disediakan kepada mahasiswa. Untuk mencapai tujuan ini, dia merasa perlu untuk mendapatkan masukan dari para mahasiswa mengenai pengalaman mereka di kampus. Selain itu, dia juga perlu melakukan monitoring terhadap nilai mahasiswa serta angka kelulusan di tiap tahunnya.
 
-Survei ini difokuskan pada mahasiswa kelas Internasional, karena mereka mungkin memiliki perspektif yang berbeda atau kebutuhan khusus dalam hal sumberdaya akademik, dukungan, dan layanan lainnya. Melalui pengumpulan data dari partisipan survei ini, Mr. X berharap untuk memahami masalah yang mungkin dihadapi mahasiswa kelas Internasional dan mencari solusi untuk meningkatkan kualitas layanan.
-
-Survey ini mencakup tiga faktor utama yang menjadi perhatian, yaitu Sumberdaya dan Dukungan Akademik (Academic Support and Resources), Layanan Kantin dan Makanan (Food and Cantines), dan faktor "lainnya" yang mungkin mencakup berbagai masalah yang tidak termasuk dalam dua kategori utama tersebut. Data yang dikumpulkan dari survei ini akan memberikan wawasan awal tentang masalah yang perlu ditangani dan area di mana perbaikan diperlukan.
-
-Mr. X memutuskan untuk menggunakan aplikasi mobile sebagai alat untuk melakukan survei ini karena kepraktisan dan keterjangkauan teknologi ini. Dengan memanfaatkan aplikasi mobile, data mentah akan dikumpulkan dengan lebih efisien dan akurat, dan hasil survei ini akan membantu memandu langkah-langkah selanjutnya dalam upaya meningkatkan kualitas layanan pendidikan dan aspek pendukung di kampus.
+Mr. X memutuskan untuk menggunakan aplikasi mobile sebagai alat mengelola data akademik serta data hasil survey. Dengan memanfaatkan aplikasi mobile, data mentah akan dikumpulkan dengan lebih efisien dan akurat, dan visualisasinya akan membantu memandu langkah-langkah selanjutnya dalam upaya meningkatkan kualitas layanan pendidikan dan aspek pendukung di kampus.
 
 &nbsp;
 
 #
 # 🤔 What makes a good App?
-Karena setiap dashboard data hasil survei biasanya dibuat dengan tujuan tertentu, seperti menyajikan data survei kepada pemangku kepentingan atau menginformasikan keputusan berdasarkan data, maka kesuksesannya sangat bergantung pada seberapa informatif dan efektif desain yang kita buat.
+Karena setiap dashboard visualisasi data biasanya dibuat dengan tujuan tertentu, seperti menyajikan data survei kepada pemangku kepentingan atau menginformasikan keputusan berdasarkan data, maka kesuksesannya sangat bergantung pada seberapa informatif dan efektif desain yang kita buat.
 ![image](./Images/UserCenteredDesign.png)
 
 Berikut ini adalah beberapa poin penting yang harus di perhatikan ketika membuat sebuah desain dashboard aplikasi mobile:
@@ -48,9 +44,9 @@ Berikut ini adalah beberapa poin penting yang harus di perhatikan ketika membuat
 # ⚽ The Goals
 Setidaknya ada 2 goal yang harus dicapai pada pembangunan aplikasi ini:
 1. Business Goal
-Aplikasi ini bertujuan untuk memberikan pemangku kepentingan (seperti manajemen, fakultas, atau staf administrasi) alat yang dapat digunakan untuk membuat keputusan strategis yang didasarkan pada data survei, yang pada gilirannya akan meningkatkan kualitas layanan dan pengalaman mahasiswa.
+Aplikasi ini bertujuan untuk memberikan pemangku kepentingan (seperti manajemen, fakultas, atau staf administrasi) aplikasi dapat digunakan untuk membuat keputusan strategis yang didasarkan pada data akademik dan  survei, yang pada akhirnya akan meningkatkan kualitas layanan dan kompentensi mahasiswa.
 2. Conversion Goal
-Jika tujuan utama adalah meningkatkan jumlah mahasiswa (asumsikan peningkatan daya jual kampus), conversion goal bisa mencakup berapa banyak mahasiswa yang tetap di Politeknik Negeri Malang dan berapa peningkatan mahasiswa baru setelah perubahan yang diimplementasikan berdasarkan temuan survei.
+Jika tujuan utama adalah meningkatkan jumlah mahasiswa (asumsikan peningkatan daya jual kampus), conversion goal bisa mencakup berapa banyak mahasiswa yang tetap di Politeknik Negeri Malang dan berapa peningkatan mahasiswa baru setelah perubahan yang diimplementasikan berdasarkan temuan.
 
 &nbsp;
 
@@ -60,11 +56,12 @@ Jika tujuan utama adalah meningkatkan jumlah mahasiswa (asumsikan peningkatan da
 Penjelasan userflow di atas adalah sebagai berikut
 1. Pengguna membuka aplikasi.
 2. Setelah membuka aplikasi, pengguna dihadapkan pada pilihan. Mereka dapat memilih untuk login menggunakan email atau dengan akun Gmail yang ada.
-3. Setelah memilih metode login yang sesuai, sistem mengarahkan pengguna ke halaman beranda. Terdapat informasi pendukung seperti total responden, rerata umur, rerata ipk, sebaran gender
-4. Di halaman beranda, pengguna diberikan opsi untuk memilih negara yang ingin mereka lihat detail respon. Pengguna dapat memilih negara tertentu sesuai dengan preferensi mereka.
-5. Setelah memilih negara, sistem menampilkan informasi survei yang terkait dengan negara yang telah dipilih oleh pengguna. Informasi survei ini mungkin mencakup detail tentang survei yang sedang berlangsung atau informasi penting lainnya.
-6. Pengguna kemudian diminta untuk memilih genre atau topik permasalahan yang mereka tinjau. Ini membantu sistem untuk mengarahkan pengguna ke survei-survei yang sesuai dengan minat mereka.
-7. Setelah pengguna memilih genre atau topik permasalahan, sistem menampilkan uraian atau deskripsi semua respon dari topik permasalahan yang telah dipilih.
+3. Setelah memilih metode login yang sesuai, sistem mengarahkan pengguna ke halaman beranda. Terdapat dua navigation, yaitu Dashboard akademik dan Laporan hasil survei
+4. Di halaman Dashboard akademik, pengguna dapat melihat informasi total alumni, diagram pie status akhir, serta diagram batang rerata IPK pertahun.
+5. Kemudian user menekan tab Laporan survei. Sistem menampilkan berbagai informasi survei. Kemudian user menambahkan data survei
+6. Sistem menampilkan form dan meminta user memasukkan data yang diperlukan.
+7. User menekan tombol Simpan, dan sistem menyimpan penambahan data baru.
+8. UserFlow lain: lapor pelecehan, lihat detail survei, edit data survei
 
 &nbsp;
 
@@ -98,17 +95,31 @@ Pengguna membuka aplikasi dengan antarmuka yang modern dan menarik. Mereka langs
 
 &nbsp;
 
+![image](./Images/DashboardAkademik.png)
+![image](./Images/iPhoneAkademik.png)
+
+Halaman Dashboard menampilkan informasi terkait total alumni mahasiswa, status akhir, dan grafik rerata IPK tiap tahunnya.
+
+&nbsp;
+
 ![image](./Images/Statistik.png)
-![image](./Images/HomePage.png)
-![image](./Images/HomePageFilter.png)
+![image](./Images/iPhoneStatistic.png)
 
-Pada halaman beranda, terdapat dua section yakni "Statistik" dan "Berdasarkan Negara".
+Pada halaman Laporan statistik survey, terdapat dua section yakni "Statistik" dan "Berdasarkan Negara".
 
-Section "Statistik" menampilkan informasi terkait total pengisi survey (responden), rerata umur, rerata ipk, dan sebaran jenis kelamin.
+Section "Statistik" menampilkan informasi terkait total pengisi survey (responden), rerata umur, rerata ipk, dan sebaran jenis kelamin. Selain itu, terdapat button untuk menambahkan data survey.
 
 Pada section "Berdasarkan Negara" pengguna dapat dengan mudah memilih negara yang ingin mereka respon melalui menu drop-down yang interaktif. Sebelum memilih negera, maka menampilkan informasi jumlah respon tiap genre secara keseluruhan.
 Setelah memilih negara, sistem menampilkan informasi survei pada negara tersebut diertai jumlah respon tiap topiknya. Pengguna dapat menekan card ini untuk mendapatkan informasi lebih detail.
 
+Pengguna dapat melakukan pelaporan pelecehan dengan menekan button "Lapor Pelecehan".
+
+&nbsp;
+
+![image](./Images/Form.png)
+![image](./Images/iPhoneForm.png)
+
+Ketika pengguna menekan tombol "+" atau "Lapor Pelecehan", maka sistem akan menampilkan form yang terdiri dari beberapa field yang harus diisi.
 
 &nbsp;
 
