@@ -27,15 +27,15 @@ Mr. X memutuskan untuk menggunakan aplikasi mobile sebagai alat mengelola data a
 
 #
 # 🤔 What makes a good App?
-Karena setiap dashboard visualisasi data biasanya dibuat dengan tujuan tertentu, seperti menyajikan data survei kepada pemangku kepentingan atau menginformasikan keputusan berdasarkan data, maka kesuksesannya sangat bergantung pada seberapa informatif dan efektif desain yang kita buat.
+Karena setiap dashboard visualisasi data biasanya dibuat dengan tujuan tertentu seperti menyajikan data survei kepada pemangku kepentingan atau menginformasikan keputusan berdasarkan data, maka kesuksesannya sangat bergantung pada seberapa informatif dan efektif desain yang kita buat.
 ![image](./Images/UserCenteredDesign.png)
 
 Berikut ini adalah beberapa poin penting yang harus di perhatikan ketika membuat sebuah desain dashboard aplikasi mobile:
 - Desain harus sederhana dan mudah dimengerti. Jangan tumpahkan terlalu banyak informasi pada satu layar, hindari kebingungan dengan pengguna.
-- Gunakan grafik dan tabel dengan. Pastikan visualisasi data memudahkan pemahaman.
-- Adanya fitur filtering, sehingga pengguna dapat menjelajahi data dengan lebih baik.
-- Prioritaskan Data Utama: Soroti data yang paling penting atau relevan untuk tujuan survei Anda. Ini memungkinkan pengguna untuk segera melihat poin-poin kunci.
-- Warna dan Kontras: Gunakan warna dengan kontras yang cukup sehingga data mudah terbaca. Perhatikan penggunaan warna yang
+- Gunakan grafik dan tabel agar visualisasi data mudah dipahami.
+- Adanya fitur filtering sehingga pengguna dapat menjelajahi data dengan lebih baik.
+- Prioritaskan Data Utama, berikan penekanan pada data yang paling penting atau relevan untuk tujuan survey. 
+- Gunakan warna dengan kontras yang cukup sehingga data mudah terbaca. 
 - Sertakan legenda atau keterangan yang menjelaskan makna elemen-elemen dalam dashboard. Ini membantu pengguna yang tidak akrab dengan data tersebut.
 
 &nbsp;
@@ -44,7 +44,7 @@ Berikut ini adalah beberapa poin penting yang harus di perhatikan ketika membuat
 # ⚽ The Goals
 Setidaknya ada 2 goal yang harus dicapai pada pembangunan aplikasi ini:
 1. Business Goal
-Aplikasi ini bertujuan untuk memberikan pemangku kepentingan (seperti manajemen, fakultas, atau staf administrasi) aplikasi dapat digunakan untuk membuat keputusan strategis yang didasarkan pada data akademik dan  survei, yang pada akhirnya akan meningkatkan kualitas layanan dan kompentensi mahasiswa.
+Aplikasi ini bertujuan untuk memberikan pemangku kepentingan (seperti manajemen, fakultas, atau staf administrasi). Aplikasi dapat digunakan untuk membuat keputusan strategis yang didasarkan pada data akademik dan survei yang pada akhirnya akan meningkatkan kualitas layanan dan kompentensi mahasiswa.
 2. Conversion Goal
 Jika tujuan utama adalah meningkatkan jumlah mahasiswa (asumsikan peningkatan daya jual kampus), conversion goal bisa mencakup berapa banyak mahasiswa yang tetap di Politeknik Negeri Malang dan berapa peningkatan mahasiswa baru setelah perubahan yang diimplementasikan berdasarkan temuan.
 
