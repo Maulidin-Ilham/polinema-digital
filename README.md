@@ -1,6 +1,10 @@
 #  ✨ PolinemaDigital - Kelompok 4
 ![image](./Images/Thumbnail.png)
 
+<div style='text-align: center;'>
+  Link Presntasi: https://youtu.be/pIsvdQYXPIY
+</div>
+
 ##
 ## 🧑‍💻 Informasi Anggota Kelompok
 1. Fitrah Rahmadhani Ahmad (2141762092) sebagai UI/UX Designer
